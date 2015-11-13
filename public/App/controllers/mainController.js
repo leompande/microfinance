@@ -10,10 +10,10 @@
         .module('microfinanceApp')
         .controller('mainController', mainController);
 
-    //mainController.$inject = [];
+    mainController.$inject = ['$scope','$window','AuthenticationService','DTOptionsBuilder'];
 
-    function mainController() {
-
+    function mainController($scope,$window,AuthenticationService,DTOptionsBuilder) {
+        $scope.isLogedIn = false;
 
     }
 

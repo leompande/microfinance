@@ -15,8 +15,6 @@ class CreateLiabilitiesTable extends Migration
         Schema::create('liabilities', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('value');
-            $table->dateTime('date');
             $table->integer('created_by');
             $table->timestamps();
         });

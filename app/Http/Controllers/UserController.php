@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -16,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::all()->load('logs');
         return $users;
     }
 
@@ -41,6 +40,7 @@ class UserController extends Controller
         //
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -49,7 +49,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!strpos($id,"@")){
+            $users = User::find($id);
+            return $users[0];
+        }else{
+            $users = User::all()->where('email',$id);
+            return $users[0];
+        }
+
     }
 
     /**

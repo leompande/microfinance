@@ -7,7 +7,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
+use Auth;
 class AuthController extends Controller
 {
     /*
@@ -42,10 +42,39 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+//            'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function authenticate(Request $request)
+    {
+////        if (Auth::attempt(['email' => $request->email, 'password' => $request->password,'status'=>'active'])) {
+        if (Auth::attempt(['email' => "mpande", 'password' => $request->password])) {
+            // Authentication passed...
+            return "Authenticated";
+        }else{
+            return $request->password;
+        }
+
+//        if($this->byemail($request->email)){
+//           return Auth::login($this->byemail($request->email));
+//            $user = User::find(1);
+//            if(Auth::login($user)){
+//                return "Accepted";
+//            }else{
+//                echo json_encode($user);
+//            }
+//        die();
+
+//        }
     }
 
     /**
@@ -57,7 +86,7 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+//            'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);

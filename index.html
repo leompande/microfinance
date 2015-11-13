@@ -44,16 +44,50 @@
     <!--[if lt IE 9]>
     <script src="public/App/vendors/js/html5shiv.js"></script>
     <script src="public/App/vendors/js/respond.min.js"></script>
+
     <![endif]-->
 
+    <script src="public/App/vendors/js/jquery/jquery.min.js"></script>
+    <script src="public/App/vendors/js/jquery-ui/jquery-ui.min.js"></script>
+    <script src="public/App/vendors/css/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+
+    <!-- Plugins - Via Local Storage-->
+    <script type="text/javascript" src="public/App/vendors/js/jquery.flot.min.js"></script>
+    <script type="text/javascript" src="public/App/vendors/js/jquery.sparkline.min.js"></script>
+    <!--<script type="text/javascript" src="public/App/vendors/js/plugins/datatables/js/datatables.js"></script>&lt;!&ndash; Datatable Bootstrap Addon &ndash;&gt;-->
+    <script type="text/javascript" src="public/App/vendors/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="public/App/vendors/js/fullcalendar.min.js"></script>
+
+    <!-- Plugins -->
+    <script type="text/javascript" src="public/App/vendors/js/plugins/calendar/gcal.js"></script><!-- Calendar Addon -->
+    <script type="text/javascript" src="public/App/vendors/js/plugins/jqueryflot/jquery.flot.resize.min.js"></script><!-- Flot Charts Addon -->
+
+    <!-- Theme Javascript -->
+    <script type="text/javascript" src="public/App/vendors/js/uniform.min.js"></script>
+    <script type="text/javascript" src="public/App/vendors/js/main.js"></script>
+    <!--<script type="text/javascript" src="js/plugins.js"></script>-->
+    <script type="text/javascript" src="public/App/vendors/js/custom.js"></script>
+
     <script src="public/App/vendors/js/angular-1.4.7/angular.js"></script>
-    <script src="public/App/vendors/js/angular-ui-router/angular-ui-router.js"></script>
+    <script src="public/App/vendors/js/angular-1.4.7/angular-cookies.js"></script>
+    <script src="public/App/vendors/js/angular-1.4.7/angular-route.js"></script>
+    <script src="public/App/vendors/js/angular-datatables.min.js"></script>
     <script src="public/App/app.js"></script>
     <script src="public/App/controllers/mainController.js"></script>
+    <script src="public/App/controllers/homeController.js"></script>
+    <script src="public/App/controllers/applicantController.js"></script>
+    <script src="public/App/controllers/loginController.js"></script>
+    <script src="public/App/services/AuthenticationService.js"></script>
+    <script src="public/App/services/UserService.js"></script>
+    <script src="public/App/services/ApplicationDetailService.js"></script>
+    <script src="public/App/services/CompanyService.js"></script>
+    <script src="public/App/services/ApplicantService.js"></script>
+    <script src="public/App/directives/viewDirective.js"></script>
 
 </head>
 
-<body class="dashboard" ng-controller="mainController as main">
+<body class="dashboard" ng-controller="mainController">
+<div ng-controller="homeController as main">
 <!-- Start: Theme Preview Pane -->
 <div id="skin-toolbox">
     <div class="skin-toolbox-toggle"> <i class="fa fa-flask"></i> </div>
@@ -272,43 +306,38 @@
     </div>
     <div id="sidebar-menu">
         <ul class="nav sidebar-nav">
-            <li class="active"> <a ui-sref="dashboard"><span class="glyphicons glyphicons-star">&nbsp;&nbsp;<i class="fa fa-dashboard "></i></span><span class="sidebar-title">Dashboard</span></a> </li>
-            <li> <a class="accordion-toggle menu-open" href="#"><span class="glyphicons glyphicons-settings">&nbsp;&nbsp;<i class="fa fa-rss "></i></span><span class="sidebar-title">Applicants</span><span class="caret"></span></a>
+            <li class="active"> <a ng-href="#/dashboard"><span class="glyphicons glyphicons-star">&nbsp;&nbsp;<i class="fa fa-dashboard "></i></span><span class="sidebar-title">Dashboard</span></a> </li>
+            <li> <a class="accordion-toggle " ><span class="glyphicons glyphicons-settings">&nbsp;&nbsp;<i class="fa fa-rss "></i></span><span class="sidebar-title">Accounts</span><span class="caret"></span></a>
+                <ul id="accounts" class="nav sub-nav">
+                    <li><a  ng-href="#/accounts/balance_sheet"><i class="fa fa-plus"></i>&nbsp;&nbsp;Balance Sheet</a></li>
+                    <li><a  ng-href="#/accounts/balance_sheet"><i class="fa fa-plus"></i>&nbsp;&nbsp;Financial Statement</a></li>
+
+                </ul>
+            </li>
+            <li> <a class="accordion-toggle menu-open" ><span class="glyphicons glyphicons-settings">&nbsp;&nbsp;<i class="fa fa-rss "></i></span><span class="sidebar-title">Applicants</span><span class="caret"></span></a>
                 <ul id="resources" class="nav sub-nav">
-                    <li><a href="#"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Applicants</a></li>
-                    <li><a href="#"><i class="fa fa-cog"></i>&nbsp;&nbsp;Manage</a></li>
+                    <li><a  ng-href="#/applicants/add"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Applicants</a></li>
+                    <li><a ng-href="#/applicants/manage"><i class="fa fa-cog"></i>&nbsp;&nbsp;Manage</a></li>
                 </ul>
             </li>
             <li> <a class="accordion-toggle" href="dashboard.html#sideOne"><span class="glyphicons glyphicons-adjust_alt">&nbsp;&nbsp;<i class="fa fa-bar-chart-o "></i></span><span class="sidebar-title">Report</span><span class="caret"></span></a>
                 <ul id="sideOne" class="nav sub-nav">
                     <li><a href="#"><span class="glyphicons glyphicons-font"></span> Loans</a></li>
-                    <li> <a class="accordion-toggle" href="dashboard.html#sideTwo"><span class="glyphicons glyphicons-vcard"></span><span class="sidebar-title">User Management</span><span class="caret"></span></a>
-                        <ul id="sideTwo" class="nav sub-nav">
-                            <li><a href="#"><span class="glyphicons glyphicons-link"></span> Form Elements</a></li>
-                            <li><a href="#"><span class="glyphicons glyphicons-ok"></span> Form Validation</a></li>
-                            <li><a href="#"><span class="glyphicons glyphicons-magic"></span> Form Wizard</a></li>
-                            <li><a href="#"><span class="glyphicons glyphicons-pencil"></span> Editors</a></li>
-                            <li><a href="#"><span class="glyphicons glyphicons-edit"></span> Inline Editing</a></li>
-                            <li><a href="#"><span class="glyphicons glyphicons-check"></span> X-editable</a></li>
-                        </ul>
-                    </li>
                     <li><a href="#"><span class="glyphicons glyphicons-paperclip"></span> Balance Sheet</a></li>
                 </ul>
             </li>
             <li> <a class="accordion-toggle" href="dashboard.html#sideOne"><span class="glyphicons glyphicons-adjust_alt">&nbsp;&nbsp;<i class="fa fa-cogs "></i></span><span class="sidebar-title">Settings</span><span class="caret"></span></a>
                 <ul id="sidethree" class="nav sub-nav">
-                    <li><a href="#"><span class="glyphicons glyphicons-font"></span> Loans</a></li>
-                    <li> <a class="accordion-toggle" href="dashboard.html#sideTwo"><span class="glyphicons glyphicons-vcard"></span><span class="sidebar-title">User Management</span><span class="caret"></span></a>
-                        <ul id="sideFour" class="nav sub-nav">
-                            <li><a href="#"><span class="glyphicons glyphicons-link"></span> Form Elements</a></li>
-                            <li><a href="#"><span class="glyphicons glyphicons-ok"></span> Form Validation</a></li>
-                            <li><a href="#"><span class="glyphicons glyphicons-magic"></span> Form Wizard</a></li>
-                            <li><a href="#"><span class="glyphicons glyphicons-pencil"></span> Editors</a></li>
-                            <li><a href="#"><span class="glyphicons glyphicons-edit"></span> Inline Editing</a></li>
-                            <li><a href="#"><span class="glyphicons glyphicons-check"></span> X-editable</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><span class="glyphicons glyphicons-paperclip"></span> Balance Sheet</a></li>
+                    <li><a ng-href="#/settings/loans">&nbsp;&nbsp;Loans</a></li>
+                    <li><a  ng-href="#/settings/expenses">&nbsp;&nbsp;Expenses</a></li>
+                    <li><a  ng-href="#/settings/liabilities">&nbsp;&nbsp;Liabilites</a></li>
+                    <li><a ng-href="#/settings/assets">&nbsp;&nbsp;Assets</a></li>
+                </ul>
+            </li>
+            <li> <a class="accordion-toggle" href="dashboard.html#sideOne"><span class="glyphicons glyphicons-adjust_alt">&nbsp;&nbsp;<i class="fa fa-cogs "></i></span><span class="sidebar-title">User Management</span><span class="caret"></span></a>
+                <ul id="sidethrees" class="nav sub-nav">
+                    <li><a ng-href="#/users/add">&nbsp;&nbsp;Add User</a></li>
+                    <li><a  ng-href="#/users/manage">&nbsp;&nbsp;Manage</a></li>
                 </ul>
             </li>
 
@@ -325,36 +354,16 @@
         <li class="active">Dashboard</li>
     </ol>
 </div>
-<div class="container" ui-view>
+<div class="container" ng-view>
 
 </div>
 </section>
 <!-- End: Content -->
 </div>
 <!-- End: Main -->
-
+</div>
 <!-- Core Javascript - via CDN -->
 
-<script src="public/App/vendors/js/jquery/jquery.min.js"></script>
-<script src="public/App/vendors/js/jquery-ui/jquery-ui.min.js"></script>
-<script src="public/App/vendors/css/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-
-<!-- Plugins - Via Local Storage-->
-<script type="text/javascript" src="public/App/vendors/js/jquery.flot.min.js"></script>
-<script type="text/javascript" src="public/App/vendors/js/jquery.sparkline.min.js"></script>
-<script type="text/javascript" src="public/App/vendors/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="public/App/vendors/js/fullcalendar.min.js"></script>
-
-<!-- Plugins -->
-<script type="text/javascript" src="public/App/vendors/js/plugins/calendar/gcal.js"></script><!-- Calendar Addon -->
-<script type="text/javascript" src="public/App/vendors/js/plugins/jqueryflot/jquery.flot.resize.min.js"></script><!-- Flot Charts Addon -->
-<script type="text/javascript" src="public/App/vendors/js/plugins/datatables/js/datatables.js"></script><!-- Datatable Bootstrap Addon -->
-
-<!-- Theme Javascript -->
-<script type="text/javascript" src="public/App/vendors/js/uniform.min.js"></script>
-<script type="text/javascript" src="public/App/vendors/js/main.js"></script>
-<!--<script type="text/javascript" src="js/plugins.js"></script>-->
-<script type="text/javascript" src="public/App/vendors/js/custom.js"></script>
 <script type="text/javascript">
 jQuery(document).ready(function() {
 
