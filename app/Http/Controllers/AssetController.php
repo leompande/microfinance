@@ -38,7 +38,15 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $asset = new Asset();
+
+        $asset->name = $request->name;
+
+        if(!$asset->save()){
+            return "failed";
+        }else{
+            return "success";
+        }
     }
 
     /**
@@ -72,7 +80,15 @@ class AssetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $asset = Asset::find($id);
+
+        $asset->name = $request->name;
+
+        if(!$asset->save()){
+            return "failed";
+        }else{
+            return "success";
+        }
     }
 
     /**
@@ -83,6 +99,10 @@ class AssetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $asset = new Asset();
+
+        if($asset->destroy($id)){
+            return "success";
+        }
     }
 }

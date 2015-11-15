@@ -8,24 +8,25 @@
         .module('microfinanceApp')
         .controller('applicantController', applicantController);
 
-    applicantController.$inject = ['$scope','$cookies','$timeout','$window','AuthenticationService','ApplicantService','DTOptionsBuilder'];
+    applicantController.$inject = ['$scope','$cookies','$timeout','$routeParams','$window','$filter','AuthenticationService','ApplicantService','ApplicationService','DTOptionsBuilder'];
 
-    function applicantController($scope,$cookies,$timeout,$window,AuthenticationService,ApplicantService,DTOptionsBuilder) {
+    function applicantController($scope,$cookies,$timeout,$routeParams,$window,$filter,AuthenticationService,ApplicantService,ApplicationService,DTOptionsBuilder) {
             var applicant = this;
             applicant.appllicants = {};
-
+        $scope.hideFormToken = false;
 
         /**
          * Applicant datatables
          * */
             $scope.dtOptions = DTOptionsBuilder.newOptions()
                 .withDisplayLength(10)
-                .withOption('bLengthChange', false);
+                .withOption('bLengthChange', true);
 
 
             ApplicantService.GetAll().then(function(data){
             applicant.appllicants  = data;
-        });
+            $scope.applicants  = data;
+            });
 
 
         /**
@@ -67,6 +68,54 @@
                 });
             }
         }
+
+        applicant.saveLoanApplication = function(newApplication){
+            $scope.applicant = null;
+            $scope.success = false;
+            $scope.failure = false;
+            if(newApplication){
+                newApplication.applicant_id = $routeParams.id;
+                $scope.current = newApplication;
+                ApplicationService.Create(newApplication).then(function(respense){
+                    if(respense=="success"){
+                        $scope.applicant = null;
+                        $scope.success = true;
+                        $scope.failure = false;
+
+                        $timeout(function () {
+                            $scope.applicant = null;
+                            $scope.success = false;
+                            $scope.failure = false;
+                        }, 1000);
+                    }
+                },function(respense){
+                    $scope.failure = true;
+                    $scope.success = false;
+                    $timeout(function () {
+                        $scope.success = false;
+                        $scope.failure = false;
+                    }, 1000);
+                });
+            }
+        }
+
+        applicant.info = function(){
+            if($routeParams.id){
+                $scope.$watch('applicants',function(newValue,oldOne){
+                    $scope.applicantInfo = $filter('filterById')($scope.applicants,$routeParams.id);
+
+                        $scope.pendingApplication = $filter('pendingApplication')($scope.applicantInfo);
+
+                    if($scope.pendingApplication=="no application"||$scope.pendingApplication){
+                            $scope.hideFormToken = true;
+                        }
+
+                });
+
+            }
+
+        }
+        applicant.info();
     }
 
 })();

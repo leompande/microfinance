@@ -17,7 +17,7 @@ class ApplicantController extends Controller
      */
     public function index()
     {
-        $applicants = Applicant::all()->load('applications','sponsor');
+        $applicants = Applicant::all()->load('applications','applications.sponsor','grantedloans','applications.loan','loan_returns');
         return $applicants;
     }
 

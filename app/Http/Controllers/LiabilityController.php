@@ -38,7 +38,15 @@ class LiabilityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $liability = new Liability();
+
+        $liability->name = $request->name;
+
+        if(!$liability->save()){
+            return "failed";
+        }else{
+            return "success";
+        }
     }
 
     /**
@@ -72,7 +80,15 @@ class LiabilityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $liability = Liability::find($id);
+
+        $liability->name = $request->name;
+
+        if(!$liability->save()){
+            return "failed";
+        }else{
+            return "success";
+        }
     }
 
     /**
@@ -83,6 +99,10 @@ class LiabilityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $liability = new Liability();
+
+        if($liability->destroy($id)){
+            return "success";
+        }
     }
 }

@@ -13,5 +13,12 @@ class Loan extends Model
      */
     protected $table = 'loans';
 
+    /**
+        Relationship
+     */
 
+    public function applications()
+    {
+        return $this->hasMany('App\Application','loan_id','id');
+    }
 }

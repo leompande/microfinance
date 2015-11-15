@@ -38,7 +38,15 @@ class ExpensesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $expense = new Expense();
+
+        $expense->name = $request->name;
+
+        if(!$expense->save()){
+            return "failed";
+        }else{
+            return "success";
+        }
     }
 
     /**
@@ -83,6 +91,10 @@ class ExpensesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $expense = new Expense();
+
+        if($expense->destroy($id)){
+            return "success";
+        }
     }
 }

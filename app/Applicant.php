@@ -22,9 +22,15 @@ class Applicant extends Model
         return $this->hasMany('App\Application','applicant_id');
     }
 
-
-    public function sponsor()
+    public function grantedloans()
     {
-        return $this->hasOne('App\Sponsor','id','sponsor_id');
+        return $this->hasMany('App\GrantedLoan','applicant_id','id');
+    }
+
+
+
+    public function loan_returns()
+    {
+        return $this->hasMany('App\LoanReturn','applicant_id','id');
     }
 }

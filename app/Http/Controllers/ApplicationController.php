@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Applicant;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Application;
+use App\Sponsor;
 class ApplicationController extends Controller
 {
     /**
@@ -16,7 +18,7 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Application::all()->load('applicants');
+        $applications = Application::all()->load('applicants','loan','sponsor');
         return $applications;
     }
 
@@ -38,7 +40,38 @@ class ApplicationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        /// Add sponsor
+        $sponsor = new Sponsor();
+        $sponsor->first_name = $request->sponsor_first_name;
+        $sponsor->middle_name = $request->sponsor_middle_name;
+        $sponsor->last_name = $request->sponsor_last_name;
+        $sponsor->gender = $request->sponsor_gender;
+        $sponsor->phone = $request->sponsor_phone;
+        $sponsor->postal_address = $request->sponsor_postal_address;
+        $sponsor->residence = $request->sponsor_residence;
+        $sponsor->birth_date = $request->sponsor_birth_date;
+        $sponsor->occupation = $request->sponsor_occupation;
+
+        if($sponsor->save()){
+            $application = new Application();
+            $application->applicant_id = $request->applicant_id;
+            $application->loan_id = $request->loan_id;
+            $application->sponsor_id  = $sponsor->id;
+            $application->applied_amount = $request->applied_amount;
+            $application->status = "pending";
+            $application->comments = $request->comments;
+            $application->collateral = $request->collateral;
+            $application->collateral_value = $request->collateral_value;
+            $application->created_by = 1;
+            if(!$application->save()){
+                return "failed";
+            }else{ return "success";
+            }
+
+            echo json_encode($application);
+        }
+
     }
 
     /**

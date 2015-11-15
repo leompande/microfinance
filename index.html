@@ -77,67 +77,29 @@
     <script src="public/App/controllers/homeController.js"></script>
     <script src="public/App/controllers/applicantController.js"></script>
     <script src="public/App/controllers/loginController.js"></script>
+    <script src="public/App/controllers/loanController.js"></script>
+    <script src="public/App/controllers/expensesController.js"></script>
+    <script src="public/App/controllers/liabilityController.js"></script>
+    <script src="public/App/controllers/assetController.js"></script>
+    <script src="public/App/controllers/applicationController.js"></script>
     <script src="public/App/services/AuthenticationService.js"></script>
     <script src="public/App/services/UserService.js"></script>
     <script src="public/App/services/ApplicationDetailService.js"></script>
     <script src="public/App/services/CompanyService.js"></script>
     <script src="public/App/services/ApplicantService.js"></script>
-    <script src="public/App/directives/viewDirective.js"></script>
+    <script src="public/App/services/ApplicationService.js"></script>
+    <script src="public/App/services/LoanService.js"></script>
+    <script src="public/App/services/ExpensesService.js"></script>
+    <script src="public/App/services/LiabilityService.js"></script>
+    <script src="public/App/services/AssetService.js"></script>
+    <script src="public/App/services/GrantService.js"></script>
+    <script src="public/App/directives/infoDirective.js"></script>
+    <script src="public/App/filters/byIdFilter.js"></script>
 
 </head>
 
 <body class="dashboard" ng-controller="mainController">
 <div ng-controller="homeController as main">
-<!-- Start: Theme Preview Pane -->
-<div id="skin-toolbox">
-    <div class="skin-toolbox-toggle"> <i class="fa fa-flask"></i> </div>
-    <div class="skin-toolbox-panel">
-        <h4 class="padding-left-sm">Theme Options</h4>
-        <form id="skin-toolbox-form">
-            <div class="form-group">
-                <label class="checkbox-inline">
-                    <input id="header-option" class="checkbox" type="checkbox" checked>
-                    Fixed <b>Header</b> </label>
-            </div>
-            <div class="form-group">
-                <label class="checkbox-inline">
-                    <input id="sidebar-option" class="checkbox" type="checkbox">
-                    Fixed <b>Sidebar</b> </label>
-            </div>
-            <div class="form-group">
-                <label class="checkbox-inline option-disabled">
-                    <input id="breadcrumb-option" class="checkbox" type="checkbox" disabled>
-                    Fixed <b>Breadcrumbs</b> </label>
-            </div>
-            <hr class="short" style="margin: 7px 10px;" />
-            <div class="form-group">
-                <label class="checkbox-inline">
-                    <input id="breadcrumb-hidden" class="checkbox" type="checkbox">
-                    Hide <b>Breadcrumbs</b> </label>
-            </div>
-            <div class="form-group margin-bottom-lg">
-                <label class="checkbox-inline">
-                    <input id="searchbar-hidden" class="checkbox" type="checkbox">
-                    Hide <b>Search Bar</b> </label>
-            </div>
-            <h4 class="padding-left-sm">Layout Options</h4>
-            <div class="form-group">
-                <label class="radio-inline">
-                    <input class="radio" type="radio" name="optionsRadios" id="fullwidth-option" checked>
-                    Fullwidth </label>
-            </div>
-            <div class="form-group">
-                <label class="radio-inline">
-                    <input class="radio" type="radio" name="optionsRadios" id="boxed-option">
-                    Boxed Layout</label>
-            </div>
-            <hr class="short"/>
-            <div class="form-group"> <a href="customizer.html" id="customizer-link" class="btn btn-warning btn-gradient btn-block padding-bottom padding-top">CUSTOMIZER</a> </div>
-        </form>
-    </div>
-</div>
-<!-- End: Theme Preview Pane -->
-
 <!-- Start: Header -->
 <header class="navbar navbar-fixed-top">
     <div class="pull-left"> <a class="navbar-brand" href="dashboard.html">
@@ -145,147 +107,147 @@
     </a> </div>
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#collapse-1"></button>
     <div class="pull-right header-btns">
-        <div class="messages-menu">
-            <button type="button" class="btn btn-sm dropdown-animate" data-toggle="dropdown"> <span class="glyphicon glyphicon-comment"></span> <b>4</b> </button>
-            <ul class="dropdown-menu checkbox-persist" role="menu">
-                <li class="menu-arrow">
-                    <div class="menu-arrow-up"></div>
-                </li>
-                <li class="dropdown-header">Recent Messages <span class="pull-right glyphicons glyphicons-comment"></span></li>
-                <li>
-                    <ul class="dropdown-items">
-                        <li>
-                            <div class="item-avatar"><img src="public/App/vendors/img/avatars/header/2.jpg" class="img-responsive" alt="avatar" /></div>
-                            <div class="item-message"><b>Maggie</b> - <small class="text-muted">12 minutes ago</small><br />
-                                Great work Yesterday!</div>
-                        </li>
-                        <li>
-                            <div class="item-avatar"><img src="public/App/vendors/img/avatars/header/3.jpg" class="img-responsive" alt="avatar" /></div>
-                            <div class="item-message"><b>Robert</b> - <small class="text-muted">3 hours ago</small><br />
-                                Is the Titan Project still on?</div>
-                        </li>
-                        <li>
-                            <div class="item-avatar"><img src="public/App/vendors/img/avatars/header/1.jpg" class="img-responsive" alt="avatar" /></div>
-                            <div class="item-message"><b>Cynthia</b> - <small class="text-muted">14 hours ago</small><br />
-                                Don't forget about the staff meeting tomorrow</div>
-                        </li>
-                        <li>
-                            <div class="item-avatar"><img src="public/App/vendors/img/avatars/header/4.jpg" class="img-responsive" alt="avatar" /></div>
-                            <div class="item-message"><b>Matt</b> - <small class="text-muted">2 days ago</small><br />
-                                Thor Project cancelled, Sorry.</div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown-footer"><a href="messages.html">View All Messages <i class="fa fa-caret-right"></i> </a></li>
-            </ul>
-        </div>
-        <div class="alerts-menu">
-            <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> <span class="glyphicons glyphicons-bell"></span> <b>3</b> </button>
-            <ul class="dropdown-menu checkbox-persist" role="menu">
-                <li class="menu-arrow">
-                    <div class="menu-arrow-up"></div>
-                </li>
-                <li class="dropdown-header">Recent Alerts <span class="pull-right glyphicons glyphicons-bell"></span></li>
-                <li>
-                    <ul class="dropdown-items">
-                        <li>
-                            <div class="item-icon"><i style="color: #0066ad;" class="fa fa-facebook"></i> </div>
-                            <div class="item-message"><a href="dashboard.html#">Facebook likes reached <b>8,200</b></a></div>
-                        </li>
-                        <li>
-                            <div class="item-icon"><i style="color: #5cb85c;" class="fa fa-check"></i> </div>
-                            <div class="item-message"><a href="dashboard.html#">Robert <b>completed task</b> - Client SEO Revamp</a></div>
-                        </li>
-                        <li>
-                            <div class="item-icon"><i style="color: #f0ad4e" class="fa fa-user"></i> </div>
-                            <div class="item-message"><a href="dashboard.html#"><b>Marko</b> logged 12 hours</a></div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown-footer"><a href="dashboard.html#">View All Alerts <i class="fa fa-caret-right"></i> </a></li>
-            </ul>
-        </div>
-        <div class="tasks-menu">
-            <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> <span class="glyphicons glyphicons-tag"></span> <b>7</b> </button>
-            <ul class="dropdown-menu dropdown-checklist checkbox-persist" role="menu">
-                <li class="menu-arrow">
-                    <div class="menu-arrow-up"></div>
-                </li>
-                <li class="dropdown-header">Recent Tasks <span class="pull-right glyphicons glyphicons-tag"></span></li>
-                <li>
-                    <ul class="dropdown-items">
-                        <li>
-                            <div class="item-icon"><i class="fa fa-pencil"></i> </div>
-                            <div class="item-message text-slash"><a>Try Clicking me!</a></div>
-                            <div class="item-label"><span class="label label-danger">Urgent</span></div>
-                            <div class="item-checkbox">
-                                <input class="checkbox row-checkbox" type="checkbox">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-icon"><i class="fa fa-phone"></i> </div>
-                            <div class="item-message text-slash"><a>Contact Client and request Approval</a></div>
-                            <div class="item-label"><span class="label label-info">Normal</span></div>
-                            <div class="item-checkbox">
-                                <input class="checkbox row-checkbox" type="checkbox">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-icon"><i class="fa fa-flask"></i> </div>
-                            <div class="item-message text-slash"><a>Find new Python Developer </a></div>
-                            <div class="item-label"><span class="label label-success">Completed</span></div>
-                            <div class="item-checkbox">
-                                <input class="checkbox row-checkbox" type="checkbox">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-icon"><i class="fa fa-facebook"></i> </div>
-                            <div class="item-message text-slash"><a>Update Facebook Page with Halloween Pictures</a></div>
-                            <div class="item-label"><span class="label label-primary">In Progress</span></div>
-                            <div class="item-checkbox">
-                                <input class="checkbox row-checkbox" type="checkbox">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-icon"><i class="fa fa-group"></i> </div>
-                            <div class="item-message text-slash"><a>Organize next Staff Meeting</a></div>
-                            <div class="item-label"><span class="label label-success">Completed</span></div>
-                            <div class="item-checkbox">
-                                <input class="checkbox row-checkbox" type="checkbox">
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item-icon"><i class="fa fa-plane"></i> </div>
-                            <div class="item-message text-slash"><a>Interview new applicant</a></div>
-                            <div class="item-label"><span class="label label-warning">Moderate</span></div>
-                            <div class="item-checkbox">
-                                <input class="checkbox row-checkbox" type="checkbox">
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown-footer"><a href="dashboard.html#">View All Tasks <i class="fa fa-caret-right"></i> </a></li>
-            </ul>
-        </div>
+        <!--<div class="messages-menu">-->
+            <!--<button type="button" class="btn btn-sm dropdown-animate" data-toggle="dropdown"> <span class="glyphicon glyphicon-comment"></span> <b>4</b> </button>-->
+            <!--<ul class="dropdown-menu checkbox-persist" role="menu">-->
+                <!--<li class="menu-arrow">-->
+                    <!--<div class="menu-arrow-up"></div>-->
+                <!--</li>-->
+                <!--<li class="dropdown-header">Recent Messages <span class="pull-right glyphicons glyphicons-comment"></span></li>-->
+                <!--<li>-->
+                    <!--<ul class="dropdown-items">-->
+                        <!--<li>-->
+                            <!--<div class="item-avatar"><img src="public/App/vendors/img/avatars/header/2.jpg" class="img-responsive" alt="avatar" /></div>-->
+                            <!--<div class="item-message"><b>Maggie</b> - <small class="text-muted">12 minutes ago</small><br />-->
+                                <!--Great work Yesterday!</div>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<div class="item-avatar"><img src="public/App/vendors/img/avatars/header/3.jpg" class="img-responsive" alt="avatar" /></div>-->
+                            <!--<div class="item-message"><b>Robert</b> - <small class="text-muted">3 hours ago</small><br />-->
+                                <!--Is the Titan Project still on?</div>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<div class="item-avatar"><img src="public/App/vendors/img/avatars/header/1.jpg" class="img-responsive" alt="avatar" /></div>-->
+                            <!--<div class="item-message"><b>Cynthia</b> - <small class="text-muted">14 hours ago</small><br />-->
+                                <!--Don't forget about the staff meeting tomorrow</div>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<div class="item-avatar"><img src="public/App/vendors/img/avatars/header/4.jpg" class="img-responsive" alt="avatar" /></div>-->
+                            <!--<div class="item-message"><b>Matt</b> - <small class="text-muted">2 days ago</small><br />-->
+                                <!--Thor Project cancelled, Sorry.</div>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <!--<li class="dropdown-footer"><a href="messages.html">View All Messages <i class="fa fa-caret-right"></i> </a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="alerts-menu">-->
+            <!--<button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> <span class="glyphicons glyphicons-bell"></span> <b>3</b> </button>-->
+            <!--<ul class="dropdown-menu checkbox-persist" role="menu">-->
+                <!--<li class="menu-arrow">-->
+                    <!--<div class="menu-arrow-up"></div>-->
+                <!--</li>-->
+                <!--<li class="dropdown-header">Recent Alerts <span class="pull-right glyphicons glyphicons-bell"></span></li>-->
+                <!--<li>-->
+                    <!--<ul class="dropdown-items">-->
+                        <!--<li>-->
+                            <!--<div class="item-icon"><i style="color: #0066ad;" class="fa fa-facebook"></i> </div>-->
+                            <!--<div class="item-message"><a href="dashboard.html#">Facebook likes reached <b>8,200</b></a></div>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<div class="item-icon"><i style="color: #5cb85c;" class="fa fa-check"></i> </div>-->
+                            <!--<div class="item-message"><a href="dashboard.html#">Robert <b>completed task</b> - Client SEO Revamp</a></div>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<div class="item-icon"><i style="color: #f0ad4e" class="fa fa-user"></i> </div>-->
+                            <!--<div class="item-message"><a href="dashboard.html#"><b>Marko</b> logged 12 hours</a></div>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <!--<li class="dropdown-footer"><a href="dashboard.html#">View All Alerts <i class="fa fa-caret-right"></i> </a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="tasks-menu">-->
+            <!--<button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> <span class="glyphicons glyphicons-tag"></span> <b>7</b> </button>-->
+            <!--<ul class="dropdown-menu dropdown-checklist checkbox-persist" role="menu">-->
+                <!--<li class="menu-arrow">-->
+                    <!--<div class="menu-arrow-up"></div>-->
+                <!--</li>-->
+                <!--<li class="dropdown-header">Recent Tasks <span class="pull-right glyphicons glyphicons-tag"></span></li>-->
+                <!--<li>-->
+                    <!--<ul class="dropdown-items">-->
+                        <!--<li>-->
+                            <!--<div class="item-icon"><i class="fa fa-pencil"></i> </div>-->
+                            <!--<div class="item-message text-slash"><a>Try Clicking me!</a></div>-->
+                            <!--<div class="item-label"><span class="label label-danger">Urgent</span></div>-->
+                            <!--<div class="item-checkbox">-->
+                                <!--<input class="checkbox row-checkbox" type="checkbox">-->
+                            <!--</div>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<div class="item-icon"><i class="fa fa-phone"></i> </div>-->
+                            <!--<div class="item-message text-slash"><a>Contact Client and request Approval</a></div>-->
+                            <!--<div class="item-label"><span class="label label-info">Normal</span></div>-->
+                            <!--<div class="item-checkbox">-->
+                                <!--<input class="checkbox row-checkbox" type="checkbox">-->
+                            <!--</div>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<div class="item-icon"><i class="fa fa-flask"></i> </div>-->
+                            <!--<div class="item-message text-slash"><a>Find new Python Developer </a></div>-->
+                            <!--<div class="item-label"><span class="label label-success">Completed</span></div>-->
+                            <!--<div class="item-checkbox">-->
+                                <!--<input class="checkbox row-checkbox" type="checkbox">-->
+                            <!--</div>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<div class="item-icon"><i class="fa fa-facebook"></i> </div>-->
+                            <!--<div class="item-message text-slash"><a>Update Facebook Page with Halloween Pictures</a></div>-->
+                            <!--<div class="item-label"><span class="label label-primary">In Progress</span></div>-->
+                            <!--<div class="item-checkbox">-->
+                                <!--<input class="checkbox row-checkbox" type="checkbox">-->
+                            <!--</div>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<div class="item-icon"><i class="fa fa-group"></i> </div>-->
+                            <!--<div class="item-message text-slash"><a>Organize next Staff Meeting</a></div>-->
+                            <!--<div class="item-label"><span class="label label-success">Completed</span></div>-->
+                            <!--<div class="item-checkbox">-->
+                                <!--<input class="checkbox row-checkbox" type="checkbox">-->
+                            <!--</div>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<div class="item-icon"><i class="fa fa-plane"></i> </div>-->
+                            <!--<div class="item-message text-slash"><a>Interview new applicant</a></div>-->
+                            <!--<div class="item-label"><span class="label label-warning">Moderate</span></div>-->
+                            <!--<div class="item-checkbox">-->
+                                <!--<input class="checkbox row-checkbox" type="checkbox">-->
+                            <!--</div>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <!--<li class="dropdown-footer"><a href="dashboard.html#">View All Tasks <i class="fa fa-caret-right"></i> </a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
         <div class="btn-group user-menu">
-            <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> <span class="glyphicons glyphicons-user"></span> <b>Cynthia</b> </button>
-            <button type="button" class="btn btn-sm dropdown-toggle padding-none" data-toggle="dropdown"> <img src="public/App/vendors/img/avatars/header/header-login.png" alt="user avatar" width="28" height="28" /> </button>
+            <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown"> <span class="glyphicons glyphicons-user"></span> <b>Leonard Mpande</b> </button>
+            <button type="button" class="btn btn-sm dropdown-toggle padding-none" data-toggle="dropdown"> <img src="public/App/vendors/img/avatars/header/header-leo.png" alt="user avatar" width="28" height="28" /> </button>
             <ul class="dropdown-menu checkbox-persist" role="menu">
                 <li class="menu-arrow">
                     <div class="menu-arrow-up"></div>
                 </li>
-                <li class="dropdown-header">Your Account <span class="pull-right glyphicons glyphicons-user"></span></li>
+                <li class="dropdown-header">Leonard Mpande <span class="pull-right glyphicons glyphicons-user"></span></li>
                 <li>
                     <ul class="dropdown-items">
-                        <li>
-                            <div class="item-icon"><i class="fa fa-envelope-o"></i> </div>
-                            <a class="item-message" href="messages.html">Messages</a> </li>
-                        <li>
-                            <div class="item-icon"><i class="fa fa-calendar"></i> </div>
-                            <a class="item-message" href="calendar.html">Calendar</a> </li>
-                        <li class="border-bottom-none">
-                            <div class="item-icon"><i class="fa fa-cog"></i> </div>
-                            <a class="item-message" href="customizer.html">Settings</a> </li>
+                        <!--<li>-->
+                            <!--<div class="item-icon"><i class="fa fa-envelope-o"></i> </div>-->
+                            <!--<a class="item-message" href="messages.html">Messages</a> </li>-->
+                        <!--<li>-->
+                            <!--<div class="item-icon"><i class="fa fa-calendar"></i> </div>-->
+                            <!--<a class="item-message" href="calendar.html">Calendar</a> </li>-->
+                        <!--<li class="border-bottom-none">-->
+                            <!--<div class="item-icon"><i class="fa fa-cog"></i> </div>-->
+                            <!--<a class="item-message" href="customizer.html">Settings</a> </li>-->
                         <li class="padding-none">
                             <div class="dropdown-lockout"><i class="fa fa-lock"></i> <a href="screen-lock.html">Screen Lock</a></div>
                             <div class="dropdown-signout"><i class="fa fa-sign-out"></i> <a href="login.html">Sign Out</a></div>
@@ -329,6 +291,7 @@
             <li> <a class="accordion-toggle" href="dashboard.html#sideOne"><span class="glyphicons glyphicons-adjust_alt">&nbsp;&nbsp;<i class="fa fa-cogs "></i></span><span class="sidebar-title">Settings</span><span class="caret"></span></a>
                 <ul id="sidethree" class="nav sub-nav">
                     <li><a ng-href="#/settings/loans">&nbsp;&nbsp;Loans</a></li>
+                    <li><a  ng-href="#/settings/applications">&nbsp;&nbsp;Applications</a></li>
                     <li><a  ng-href="#/settings/expenses">&nbsp;&nbsp;Expenses</a></li>
                     <li><a  ng-href="#/settings/liabilities">&nbsp;&nbsp;Liabilites</a></li>
                     <li><a ng-href="#/settings/assets">&nbsp;&nbsp;Assets</a></li>

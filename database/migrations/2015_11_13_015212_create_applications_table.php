@@ -15,11 +15,14 @@ class CreateApplicationsTable extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('applicant_id');
+            $table->integer('loan_id');
+            $table->integer('sponsor_id');
             $table->string('applied_amount');
             $table->string('amount_granted');
             $table->string('status');
             $table->string('comments');
             $table->string('collateral');
+            $table->string('collateral_value');
             $table->string('created_by');
             $table->timestamps();
         });
