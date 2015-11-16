@@ -37,8 +37,18 @@ class FinancialTransactionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {  /// Add sponsor
+        $finance = new FinancialTransaction();
+        $finance->transaction_name = $request->name;
+        $finance->transaction_type = $request->type;
+        $finance->amount = $request->amount;
+
+        if(!$finance->save()){
+            return "failed";
+            }else{
+            return "success";
+            }
+
     }
 
     /**
@@ -60,7 +70,7 @@ class FinancialTransactionController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -72,7 +82,16 @@ class FinancialTransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $finance = FinancialTransaction::find($id);
+        $finance->transaction_name = $request->transaction_name;
+        $finance->transaction_type = $request->transaction_type;
+        $finance->amount = $request->amount;
+
+        if(!$finance->save()){
+            return "failed";
+        }else{
+            return "success";
+        }
     }
 
     /**
@@ -83,6 +102,11 @@ class FinancialTransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $finance = FinancialTransaction::find($id);
+        if(!$finance->destroy($id)){
+            return "failed";
+        }else{
+            return "success";
+        }
     }
 }

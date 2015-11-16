@@ -76,7 +76,7 @@
         }
         expensesC.updateExpenses = function(expenses){
 
-            ExpensesService.Create(expenses).then(function(response){
+            ExpensesService.Update(expenses).then(function(response){
                 if(response=="success"){
                     expensesC.loadExpenses();
                     $scope.edit_expenses = false;

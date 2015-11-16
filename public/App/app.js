@@ -52,6 +52,8 @@
                 templateUrl: "public/App/partials/applicants.html"
             }).when('/accounts/balance_sheet', {
                 templateUrl: "public/App/partials/add_applicants.html"
+            }).when('/accounts/finances', {
+                templateUrl: "public/App/partials/accounts/finance/index.html"
             })
             .when('/settings/loans', {
                 templateUrl: "public/App/partials/settings/loans/index.html",
