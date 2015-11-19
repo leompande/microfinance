@@ -42,8 +42,8 @@
             $scope.failure = false;
             if(Assets){
                 $scope.current = Assets;
-                AssetService.Create(Assets).then(function(respense){
-                    if(respense=="success"){
+                AssetService.Create(Assets).then(function(respense){alert(respense);
+                    if(respense=="success"){alert(respense);
                         $scope.assetOb = null;
                         $scope.success = true;
                         $scope.failure = false;

@@ -12,4 +12,8 @@ class Expense extends Model
      * @var string
      */
     protected $table = 'expenses';
+
+    public function expensesTransactions(){
+        return $this->hasMany('App\FinancialTransaction','expens_id','id');
+    }
 }

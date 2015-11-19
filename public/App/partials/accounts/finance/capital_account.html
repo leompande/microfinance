@@ -1,0 +1,116 @@
+<style>
+    div.vertical-line{
+        border-left:1px solid #ddd;
+        border-right:1px solid #ddd;
+        height: 100%;
+    }
+    div.holizontal-line{
+        border-bottom: 1px solid #ddd;
+        border-top: 1px solid #ddd;
+        /*width: 100%;*/
+    }
+</style>
+<div class="col-md-12 ng-scope" ng-controller="capitalAccountController as capital">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-title"> <i class="fa fa-dollar"></i> Capital Account </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <form>
+                    <div class="col-md-6">
+                        <div class="col-md-3">
+                            <datepicker date-format="yyyy-MM-dd">
+                                <input id="to_date" name="date" type="text"  ng-model="start_date" class="form-control" placeholder="From" required="">
+                            </datepicker>
+                        </div>
+                        <div class="col-md-3">
+                            <datepicker date-format="yyyy-MM-dd">
+                                <input id="from_date" name="date" type="text"  ng-model="end_date" class="form-control" placeholder="To" required="">
+                            </datepicker>
+                        </div>
+                    </div><div class="col-md-6">
+                    <div class="form-group pull-right">
+                        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-print"></i>Print</button>
+                        <!--<input id="asset" name="assets_name" type="text"   ng-model="assetOb.name" class="form-control" placeholder="Asset Name" required="">-->
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center;"><h3>{{company[0].company_name}}</h3></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="text-align: center;"><h4>Capital Account</h4></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="text-align: center;">{{todays_date}}</div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6 vertical-line holizontal-line" style="text-align: left;font-weight: bold;">Descriptions</div>
+
+                <div class="col-md-3 vertical-line holizontal-line" style="text-align: left;font-weight: bold;">Dr.</div>
+                <div class="col-md-3 holizontal-line vertical-line" style="text-align: right;font-weight: bold;">Cr.</div>
+            </div>
+            <div class="col-md-12">
+                <style>
+                    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+                        border-top:1px solid #ffffff!important;
+                    }
+                </style>
+                <!--<div class="col-md-12">-->
+                    <div class="col-md-6  vertical-line holizontal-line">
+                        <table class="table">
+                            <tbody>
+                            <tr><td></td></tr>
+                            <tr><td>Cash</td></tr>
+                            <tr><td>Balance</td></tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-md-3  vertical-line holizontal-line">
+                        <table class="table">
+                            <tbody>
+                            <tr><td>0</td></tr>
+                            <tr><td>b</td></tr>
+                            <tr><td>b</td></tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-md-3  holizontal-line vertical-line">
+                        <table class="table">
+                            <tbody>
+                            <tr><td></td></tr>
+                            <tr><td>c</td></tr>
+                            <tr><td>c</td></tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table" >
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table">
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-bottom: 20px;"></div>
+        </div>
+    </div>
+</div>
+<!--<div class="panel-body">-->
+
+<!--</div>-->
+</div>
+</div>

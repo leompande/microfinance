@@ -14,8 +14,9 @@ class CreateFinancialTransactionsTable extends Migration
     {
         Schema::create('financial_transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('transaction_name');
             $table->string('transaction_type');
+            $table->string('expens_id')->nullable();
+            $table->string('liab_id')->nullable();
             $table->string('amount');
             $table->string('created_by');
             $table->timestamps();

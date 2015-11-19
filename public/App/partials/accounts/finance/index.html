@@ -10,13 +10,11 @@
                 <li class="active"><a href="tabs.html#tab1" data-toggle="tab">All</a></li>
                 <li class=""><a href="tabs.html#tab2" data-toggle="tab">Expenses</a></li>
                 <li class=""><a href="tabs.html#tab3" data-toggle="tab">Liabilities</a></li>
-                <li class=""><a href="tabs.html#tab4" data-toggle="tab">Assets</a></li>
-                <li class=""><a href="tabs.html#tab5" data-toggle="tab">Income</a></li>
-                <li class=""><a href="tabs.html#tab6" data-toggle="tab">Others</a></li>
+                <!--<li class=""><a href="tabs.html#tab5" data-toggle="tab">Income</a></li>-->
+                <!--<li class=""><a href="tabs.html#tab6" data-toggle="tab">Others</a></li>-->
             </ul>
             <div class="tab-content border-none padding-none">
                 <div id="tab1" class="tab-pane active">
-
 
                     <table class="table table-condensed" datatable="ng" dt-options="dtOptions">
                         <thead>
@@ -33,7 +31,8 @@
                         <tr ng-repeat="transaction in finance.finances">
 
                             <td>{{$index+1}}</td>
-                            <td>{{transaction.transaction_name}} </td>
+                            <td ng-if="transaction.expenses.name">{{transaction.expenses.name}} </td>
+                            <td ng-if="transaction.liabilities.name">{{transaction.liabilities.name}} </td>
                             <td>{{transaction.transaction_type}}</td>
                             <td>{{transaction.amount}}</td>
                             <td>{{transaction.created_at}}</td>
@@ -61,10 +60,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="transaction in finance.finances">
+                        <tr ng-repeat="transaction in finance.finances | filterByType:'Expenses'">
 
                             <td>{{$index+1}}</td>
-                            <td>{{transaction.transaction_name}} </td>
+                            <td>{{transaction.expenses.name}} </td>
                             <td>{{transaction.transaction_type}}</td>
                             <td>{{transaction.amount}}</td>
                             <td>{{transaction.created_at}}</td>
@@ -92,10 +91,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="transaction in finance.finances">
-
+                        <tr ng-repeat="transaction in finance.finances | filterByType:'Liabilities'">
                             <td>{{$index+1}}</td>
-                            <td>{{transaction.transaction_name}} </td>
+                            <td ng-if="transaction.expenses.name">{{transaction.expenses.name}} </td>
+                            <td ng-if="transaction.liabilities.name">{{transaction.liabilities.name}} </td>
                             <td>{{transaction.transaction_type}}</td>
                             <td>{{transaction.amount}}</td>
                             <td>{{transaction.created_at}}</td>
@@ -109,97 +108,66 @@
                     </table>
 
                 </div>
-                <div id="tab4" class="tab-pane chat-panel ">
+                <!--<div id="tab5" class="tab-pane chat-panel ">-->
 
-                    <table class="table table-condensed" datatable="ng" dt-options="dtOptions">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Amount</th>
-                            <th>Date</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="transaction in finance.finances">
+                    <!--<table class="table table-condensed" datatable="ng" dt-options="dtOptions">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+                            <!--<th>#</th>-->
+                            <!--<th>Name</th>-->
+                            <!--<th>Type</th>-->
+                            <!--<th>Amount</th>-->
+                            <!--<th>Date</th>-->
+                            <!--<th>Action</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--<tr ng-repeat="transaction in finance.finances">-->
 
-                            <td>{{$index+1}}</td>
-                            <td>{{transaction.transaction_name}} </td>
-                            <td>{{transaction.transaction_type}}</td>
-                            <td>{{transaction.amount}}</td>
-                            <td>{{transaction.created_at}}</td>
-                            <td  class=" ">
-                                <a style="cursor: pointer" ng-click="finance.editTransaction(transaction.id)" title="edit Transaction" class="edituser"><i class="fa fa-pencil text-info"></i> edit</a>&nbsp;&nbsp;&nbsp;
-                                <a style="cursor: pointer"  ng-click="finance.deleteTransaction(transaction.id)" title="delete Transaction" class="deleteapp"><i class="fa fa-trash-o text-danger"></i> delete</a>
+                            <!--<td>{{$index+1}}</td>-->
+                            <!--<td>{{transaction.expenses.name}} </td>-->
+                            <!--<td>{{transaction.transaction_type}}</td>-->
+                            <!--<td>{{transaction.amount}}</td>-->
+                            <!--<td>{{transaction.created_at}}</td>-->
+                            <!--<td  class=" ">-->
+                                <!--<a style="cursor: pointer" ng-click="finance.editTransaction(transaction.id)" title="edit Transaction" class="edituser"><i class="fa fa-pencil text-info"></i> edit</a>&nbsp;&nbsp;&nbsp;-->
+                                <!--<a style="cursor: pointer"  ng-click="finance.deleteTransaction(transaction.id)" title="delete Transaction" class="deleteapp"><i class="fa fa-trash-o text-danger"></i> delete</a>-->
 
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                <!--</div>-->
+                <!--<div id="tab6" class="tab-pane chat-panel ">-->
 
-                </div>
-                <div id="tab5" class="tab-pane chat-panel ">
+                    <!--<table class="table table-condensed" datatable="ng" dt-options="dtOptions">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+                            <!--<th>#</th>-->
+                            <!--<th>Name</th>-->
+                            <!--<th>Type</th>-->
+                            <!--<th>Amount</th>-->
+                            <!--<th>Date</th>-->
+                            <!--<th>Action</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--<tr ng-repeat="transaction in finance.finances">-->
 
-                    <table class="table table-condensed" datatable="ng" dt-options="dtOptions">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Amount</th>
-                            <th>Date</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="transaction in finance.finances">
+                            <!--<td>{{$index+1}}</td>-->
+                            <!--<td>{{transaction.expenses.name}} </td>-->
+                            <!--<td>{{transaction.transaction_type}}</td>-->
+                            <!--<td>{{transaction.amount}}</td>-->
+                            <!--<td>{{transaction.created_at}}</td>-->
+                            <!--<td  class=" ">-->
+                                <!--<a style="cursor: pointer" ng-click="finance.editTransaction(transaction.id)" title="edit Transaction" class="edituser"><i class="fa fa-pencil text-info"></i> edit</a>&nbsp;&nbsp;&nbsp;-->
+                                <!--<a style="cursor: pointer"  ng-click="finance.deleteTransaction(transaction.id)" title="delete Transaction" class="deleteapp"><i class="fa fa-trash-o text-danger"></i> delete</a>-->
 
-                            <td>{{$index+1}}</td>
-                            <td>{{transaction.transaction_name}} </td>
-                            <td>{{transaction.transaction_type}}</td>
-                            <td>{{transaction.amount}}</td>
-                            <td>{{transaction.created_at}}</td>
-                            <td  class=" ">
-                                <a style="cursor: pointer" ng-click="finance.editTransaction(transaction.id)" title="edit Transaction" class="edituser"><i class="fa fa-pencil text-info"></i> edit</a>&nbsp;&nbsp;&nbsp;
-                                <a style="cursor: pointer"  ng-click="finance.deleteTransaction(transaction.id)" title="delete Transaction" class="deleteapp"><i class="fa fa-trash-o text-danger"></i> delete</a>
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="tab6" class="tab-pane chat-panel ">
-
-                    <table class="table table-condensed" datatable="ng" dt-options="dtOptions">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Amount</th>
-                            <th>Date</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="transaction in finance.finances">
-
-                            <td>{{$index+1}}</td>
-                            <td>{{transaction.transaction_name}} </td>
-                            <td>{{transaction.transaction_type}}</td>
-                            <td>{{transaction.amount}}</td>
-                            <td>{{transaction.created_at}}</td>
-                            <td  class=" ">
-                                <a style="cursor: pointer" ng-click="finance.editTransaction(transaction.id)" title="edit Transaction" class="edituser"><i class="fa fa-pencil text-info"></i> edit</a>&nbsp;&nbsp;&nbsp;
-                                <a style="cursor: pointer"  ng-click="finance.deleteTransaction(transaction.id)" title="delete Transaction" class="deleteapp"><i class="fa fa-trash-o text-danger"></i> delete</a>
-
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                <!--</div>-->
             </div>
         </div>
         <!--<div class="panel-body">-->
@@ -207,6 +175,7 @@
         <!--</div>-->
     </div>
 </div>
+
 <div class="col-md-4">
     <div class="panel" ng-if="add_transaction">
         <div class="panel-heading">
@@ -216,19 +185,20 @@
             <form class="form-horizontal ng-pristine ng-invalid ng-invalid-required" role="form" ng-submit="finance.saveTransactions(transactionOb)">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="name">Transaction Name</label>
-                        <input id="name" name="name" type="text" ng-model="transactionOb.name" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" placeholder="Transaction Name" required="">
+                        <label for="asset">Transaction Type</label>
+                        <select id="asset" name="assets_name" ng-model="transactionOb.type" ng-change="finance.loadTransTypeList(transactionOb.type)" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" placeholder="Transaction Type" required="">
+                            <option>Expenses</option>
+                            <option>Liabilities</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="asset">Transaction Type</label>
-                        <select id="asset" name="assets_name" ng-model="transactionOb.type" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" placeholder="Transaction Type" required="">
-                            <option>Expenses</option>
-                            <option>Liabilities</option>
-                            <option>Assets</option>
-                            <option>Income</option>
-                            <option>Others</option>
+                        <label for="name">Transaction Name</label>
+                        <select id="name" ng-model="transactionOb.trans_id" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" required="">
+                           <option ng-repeat="option in optionList" value="{{option.id}}">
+                               {{option.name}}
+                           </option>
                         </select>
                     </div>
                 </div>
@@ -257,35 +227,39 @@
         </div>
         <div class="panel-body">
             <form class="form-horizontal ng-pristine ng-invalid ng-invalid-required" role="form" ng-submit="finance.updateTransaction(transaction_to_edit)">
+
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="editname">Transaction Name</label>
-                        <input id="editname" name="name" type="text" ng-model="transaction_to_edit.transaction_name" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" placeholder="Transaction Name" required="">
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="editasset">Transaction Type</label>
-                        <select id="editasset" name="assets_name" ng-model="transaction_to_edit.transaction_type" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" placeholder="Transaction Type" required="">
-                            <option>Loan</option>
+                        <label for="asset">Transaction Type</label>
+                        <select id="asset" name="assets_name" ng-model="transaction_to_edit.transaction_type" ng-change="finance.loadTransTypeList(transaction_to_edit.transaction_type)" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" placeholder="Transaction Type" required="">
                             <option>Expenses</option>
                             <option>Liabilities</option>
-                            <option>Assets</option>
-                            <option>Income</option>
-                            <option>Others</option>
                         </select>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="name">Transaction Name</label>
+                        <select id="name" ng-model="transaction_to_edit.trans_id" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" required="">
+                            <option selected>{{selected_to_edit.name}}</option>
+                            <option ng-repeat="option in optionList" value="{{option.id}}">
+                                {{option.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="samount">Amount</label>
                         <input id="samount" name="amount" type="text" ng-model="transaction_to_edit.amount" class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" placeholder="Amount" required="">
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="row">
                     <div class="col-sm-12 form-group text-center">
                         <input class="btn btn-primary" type="submit" value="Register">
                         <input class="btn btn-warning" type="reset" value="Reset">
+                        <input ng-click="finance.add_trans()" class="btn btn-danger" type="reset" value="Cancel">
                     </div>
 
                 </div>

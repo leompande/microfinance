@@ -16,7 +16,7 @@ class LiabilityController extends Controller
      */
     public function index()
     {
-        $liabilities = Liability::all();
+        $liabilities = Liability::all()->load("liabilityTransactions");
         return $liabilities;
     }
 

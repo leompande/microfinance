@@ -7,10 +7,10 @@
 
     angular
         .module('microfinanceApp')
-        .factory('CompanyService', CompanyService);
+        .factory('companyProfitService', companyProfitService);
 
-    CompanyService.$inject = ['$http'];
-    function CompanyService($http) {
+    companyProfitService.$inject = ['$http'];
+    function companyProfitService($http) {
         var service = {};
 
         service.GetAll = GetAll;
@@ -23,27 +23,27 @@
         return service;
 
         function GetAll() {
-            return $http.get('public/index.php/company').then(handleSuccess, handleError('Error getting all users'));
+            return $http.get('public/index.php/company_profits').then(handleSuccess, handleError('Error getting all users'));
         }
 
         function GetById(id) {
-            return $http.get('/api/company/' + id).then(handleSuccess, handleError('Error getting user by id'));
+            return $http.get('/api/company_profits/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
         function GetByUsername(username) {
-            return $http.get('/api/company/' + username).then(handleSuccess, handleError('Error getting user by username'));
+            return $http.get('/api/company_profits/' + username).then(handleSuccess, handleError('Error getting user by username'));
         }
 
         function Create(user) {
-            return $http.post('/api/company', user).then(handleSuccess, handleError('Error creating user'));
+            return $http.post('/api/company_profits', user).then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(user) {
-            return $http.put('/api/company/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+            return $http.put('/api/company_profits/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
         }
 
         function Delete(id) {
-            return $http.delete('/api/company/' + id).then(handleSuccess, handleError('Error deleting user'));
+            return $http.delete('/api/company_profits/' + id).then(handleSuccess, handleError('Error deleting user'));
         }
 
         // private functions

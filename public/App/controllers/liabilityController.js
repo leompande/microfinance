@@ -33,7 +33,10 @@
         liabilityC.loadLiabilities();
 
 
-
+        liabilityC.addLiab = function(){
+            $scope.edit_liabilities = false;
+            $scope.add_liabilities = true;
+        }
         liabilityC.saveLiabilities = function(Liabilities){
             console.log(Liabilities);
 

@@ -146,6 +146,10 @@
 
     </div>
 </div>
+        <!--{{applicant.grantedloans}}-->
+        <br/>
+        <br/>
+        <!--{{applicant.loan_returns}}-->
 <div class="col-md-6">
     <div class="panel profile-panel">
         <div class="panel-heading panel-visible">
@@ -161,16 +165,16 @@
                  <div class="col-xs-12">
                      <div>
                          <div>
-                             <div class="col-xs-8"><h4>Last Payment</h4></div>
+                             <div class="col-xs-8"><h4>Current Payment</h4></div>
                              <div class="col-xs-4"> date: 28 May 2015</div>
                          </div>
                          <span ng-repeat="a_return in applicant.loan_returns | latestReturn:a_return">{{a_return.created_at}}</span>
                          <div class="col-xs-12">
-                             <div class="col-xs-6"> Amount to Pay: 7561833</div>
-                             <div class="col-xs-6"> Amount Paid: 756183</div>
+                             <div class="col-xs-6"> Amount to Pay: {{amount_to_return}}</div>
+                             <div class="col-xs-6"> Loaned: {{last_payment.amount}}</div>
                              </div>
                           <div class="col-xs-12">
-                             <div class="col-xs-6"> Remaining: 6805650</div>
+                             <div class="col-xs-6"> Amount Per return : {{amount_to_return}}</div>
                              <div class="col-xs-6">Balance: 74862151</div>
                          </div>
 

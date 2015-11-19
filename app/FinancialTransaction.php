@@ -12,4 +12,11 @@ class FinancialTransaction extends Model
      * @var string
      */
     protected $table = 'financial_transactions';
+
+    public function expenses(){
+        return $this->hasOne('App\Expense','id','expens_id');
+    }
+    public function liabilities(){
+        return $this->hasOne('App\Liability','id','liab_id');
+    }
 }

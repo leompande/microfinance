@@ -12,4 +12,8 @@ class Liability extends Model
      * @var string
      */
     protected $table = 'liabilities';
+
+    public function liabilityTransactions(){
+        return $this->hasMany('App\FinancialTransaction','liab_id','id');
+    }
 }

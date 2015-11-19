@@ -1,0 +1,88 @@
+<div class="col-md-12 ng-scope" ng-controller="applicantController as applicant">
+<div class="panel">
+<div class="panel-heading">
+    <div class="panel-title"> <i class="fa fa-credit-card"></i> Balance Sheet </div>
+</div>
+<div class="panel-body">
+<div class="row">
+    <form>
+        <div class="col-md-3">
+            <div class="form-group">
+                <!--<label for="date">Date</label>-->
+                <!--<datepicker date-format="yyyy-MM-dd">-->
+                    <!--<input id="date" name="date" type="text"  ng-model="balance_date" class="form-control" placeholder="Date" required="">-->
+                <!--</datepicker>-->
+                <!--<input id="asset" name="assets_name" type="text"   ng-model="assetOb.name" class="form-control" placeholder="Asset Name" required="">-->
+            </div>
+        </div><div class="col-md-9">
+            <div class="form-group pull-right">
+                <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-print"></i>Print</button>
+                <!--<input id="asset" name="assets_name" type="text"   ng-model="assetOb.name" class="form-control" placeholder="Asset Name" required="">-->
+            </div>
+        </div>
+    </form>
+</div>
+    <div class="col-md-12">
+<div class="row">
+    <div class="col-md-12" style="text-align: center;"><h3>{{company[0].company_name}}</h3></div>
+</div>
+    <div class="row">
+    <div class="col-md-12" style="text-align: center;"><h4>Balance Sheet</h4></div>
+</div>
+    </div>
+    <div class="row">
+    <div class="col-md-12" style="text-align: center;">{{todays_date}}</div>
+</div>
+    <div class="col-md-12"><hr/></div>
+<div class="col-md-12">
+    <style>
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+            border-top:1px solid #ffffff!important;
+        }
+    </style>
+    <div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            <tbody>
+            <tr ><th style="border-bottom: 1px solid #ddd;">Assets</th><th ></th></tr>
+            <tr ng-repeat="asset in assets"><td>{{asset.name}}</td><td style="text-align: right;">{{asset.value}}</td></tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-md-6">
+        <table class="table">
+            <tbody>
+            <tr ><th style="border-bottom: 1px solid #ddd;">Liabilities</th><th ></th></tr>
+            <tr ng-repeat="liability in liabilities"><td>{{liability.transaction_name}}</td><td style="text-align: right">{{liability.amount}}</td></tr>
+            </tbody>
+        </table>
+
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+        <table class="table" style="margin-bottom: ">
+            <tbody>
+            <tr><th>Total Assets</th><td style="border-top:1px solid #ddd!important;border-bottom:1px double #ddd!important;text-align: right;"> {{total_assets}}</td></tr>
+            </tbody>
+        </table>
+        </div>
+    <div class="col-md-6">
+        <table class="table">
+            <tbody>
+            <tr><th>Total Liabilities</th><td style="border-top:1px solid #ddd!important;border-bottom:1px double #ddd!important;text-align: right;"> {{total_liabilities}}</td></tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+<div style="margin-bottom: 20px;"></div>
+</div>
+</div>
+</div>
+<!--<div class="panel-body">-->
+
+<!--</div>-->
+</div>
+</div>

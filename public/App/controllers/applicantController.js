@@ -13,7 +13,7 @@
     function applicantController($scope,$cookies,$timeout,$routeParams,$window,$filter,AuthenticationService,ApplicantService,ApplicationService,DTOptionsBuilder) {
             var applicant = this;
             applicant.appllicants = {};
-        $scope.hideFormToken = false;
+            $scope.hideFormToken = false;
 
         /**
          * Applicant datatables

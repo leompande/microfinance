@@ -16,7 +16,7 @@ class FinancialTransactionController extends Controller
      */
     public function index()
     {
-        $financial_transactions = FinancialTransaction::all();
+        $financial_transactions = FinancialTransaction::all()->load("expenses","liabilities");
         return $financial_transactions;
     }
 
@@ -39,8 +39,15 @@ class FinancialTransactionController extends Controller
     public function store(Request $request)
     {  /// Add sponsor
         $finance = new FinancialTransaction();
-        $finance->transaction_name = $request->name;
         $finance->transaction_type = $request->type;
+        if($request->type=="Expenses"){
+
+            $finance->expens_id = $request->trans_id;
+        }
+        if($request->type=="Liabilities"){
+
+            $finance->liab_id = $request->trans_id;
+        }
         $finance->amount = $request->amount;
 
         if(!$finance->save()){
@@ -83,8 +90,15 @@ class FinancialTransactionController extends Controller
     public function update(Request $request, $id)
     {
         $finance = FinancialTransaction::find($id);
-        $finance->transaction_name = $request->transaction_name;
         $finance->transaction_type = $request->transaction_type;
+        if($request->type=="Expenses"){
+
+            $finance->expens_id = $request->trans_id;
+        }
+        if($request->type=="Liabilities"){
+
+            $finance->liab_id = $request->trans_id;
+        }
         $finance->amount = $request->amount;
 
         if(!$finance->save()){

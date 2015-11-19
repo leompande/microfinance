@@ -16,7 +16,7 @@ class ExpensesController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::all();
+        $expenses = Expense::all()->load("expensesTransactions");
         return $expenses;
     }
 

@@ -41,6 +41,8 @@ class AssetController extends Controller
         $asset = new Asset();
 
         $asset->name = $request->name;
+        $asset->value = $request->value;
+        $asset->date = $request->date;
 
         if(!$asset->save()){
             return "failed";

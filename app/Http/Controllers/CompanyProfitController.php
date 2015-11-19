@@ -73,7 +73,13 @@ class CompanyProfitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $companyProfit = CompanyProfit::find($id);
+        $companyProfit->amount = $request->amount;
+        if(!$companyProfit->save()){
+            return "failed";
+        }else{
+            return "success";
+        }
     }
 
     /**

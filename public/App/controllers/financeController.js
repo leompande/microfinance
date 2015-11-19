@@ -8,9 +8,9 @@
         .module('microfinanceApp')
         .controller('financeController', financeController);
 
-    financeController.$inject = ['$scope','$cookies','$timeout','$routeParams','$window','$filter','AuthenticationService','ApplicantService','ApplicationService','GrantService','FinanceService','DTOptionsBuilder'];
+    financeController.$inject = ['$scope','$cookies','$timeout','$routeParams','$window','$filter','AuthenticationService','ApplicantService','ApplicationService','GrantService','FinanceService','ExpensesService','LiabilityService','DTOptionsBuilder'];
 
-    function financeController($scope,$cookies,$timeout,$routeParams,$window,$filter,AuthenticationService,ApplicantService,ApplicationService,GrantService,FinanceService,DTOptionsBuilder) {
+    function financeController($scope,$cookies,$timeout,$routeParams,$window,$filter,AuthenticationService,ApplicantService,ApplicationService,GrantService,FinanceService,ExpensesService,LiabilityService,DTOptionsBuilder) {
         var finance = this;
         finance.finances = {};
 
@@ -21,6 +21,39 @@
             .withDisplayLength(10)
             .withOption('bLengthChange', true);
 
+        finance.loadTransTypeList = function(translist){
+            var expenses = [];
+            angular.forEach(finance.expenses,function(value,index){
+                expenses.push({id:value.id,name:value.name,type:"expenses"});
+            });
+            var liabilities = [];
+            angular.forEach(finance.liabilities,function(value,index){
+                liabilities.push({id:value.id,name:value.name,type:"liability"});
+            });
+
+            if(translist=="Expenses"){
+                $scope.optionList = expenses;
+            }
+            if(translist=="Liabilities"){
+                $scope.optionList = liabilities;
+            }
+        }
+
+        finance.loadLiabilities = function(){
+            LiabilityService.GetAll().then(function(data){
+                finance.liabilities  = data;
+            });
+
+        }
+        finance.loadLiabilities();
+
+        finance.loadExpenses = function(){
+            ExpensesService.GetAll().then(function(data){
+                finance.expenses  = data;
+            });
+
+        }
+        finance.loadExpenses();
         finance.loadTransactions = function(){
             FinanceService.GetAll().then(function(data){
                 finance.finances  = data;
@@ -30,7 +63,7 @@
         }
         finance.loadTransactions();
         finance.saveTransactions = function(transaction){
-
+            console.log(transaction);
             $scope.success = false;
             $scope.failure = false;
             if(transaction){
@@ -64,7 +97,19 @@
             $scope.edit_transaction = true;
             $scope.add_transaction = false;
             $scope.transaction_to_edit = $filter('filterById')($scope.finances,id);
+
+            if($scope.transaction_to_edit.transaction_type=="Liabilities"){
+                $scope.selected_to_edit = $scope.transaction_to_edit.liabilities;
+            }
+            if($scope.transaction_to_edit.transaction_type=="Expenses"){
+                $scope.selected_to_edit = $scope.transaction_to_edit.expenses;
+            }
+
             console.log(id);
+        }
+        finance.add_trans = function(){
+            $scope.edit_transaction = false;
+            $scope.add_transaction = true;
         }
         finance.updateTransaction = function(expenses){
 

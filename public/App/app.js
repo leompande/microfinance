@@ -7,7 +7,7 @@
     'use strict';
 
     angular
-        .module('microfinanceApp', ['ngRoute','ngCookies','datatables'])
+        .module('microfinanceApp', ['ngRoute','ngCookies','datatables','720kb.datepicker'])
         .config(applicationConfiguration);
     applicationConfiguration.$inject = ['$routeProvider'];
     function applicationConfiguration ($routeProvider) {
@@ -51,9 +51,18 @@
 
                 templateUrl: "public/App/partials/applicants.html"
             }).when('/accounts/balance_sheet', {
-                templateUrl: "public/App/partials/add_applicants.html"
+                templateUrl: "public/App/partials/accounts/finance/balance_sheet.html",
+                controller:"balanceSheetController"
             }).when('/accounts/finances', {
                 templateUrl: "public/App/partials/accounts/finance/index.html"
+            }).when('/accounts/capital_account', {
+                templateUrl: "public/App/partials/accounts/finance/capital_account.html"
+            }).when('/accounts/cash_account', {
+                templateUrl: "public/App/partials/accounts/finance/cash_account.html"
+            }).when('/accounts/income_statement', {
+                templateUrl: "public/App/partials/accounts/finance/income_statement.html"
+            }).when('/accounts/balance_sheet', {
+                templateUrl: "public/App/partials/accounts/finance/balance_sheet.html"
             })
             .when('/settings/loans', {
                 templateUrl: "public/App/partials/settings/loans/index.html",
@@ -82,6 +91,9 @@
             .when('/settings/assets', {
                 templateUrl: "public/App/partials/settings/assets/index.html",
                 controller:"assetController"
+            }).when('/settings/start_capital', {
+                templateUrl: "public/App/partials/settings/start_capital/index.html",
+                controller:"companyController"
             })
             .when('/settings/applications', {
                 templateUrl: "public/App/partials/settings/applications/index.html",
