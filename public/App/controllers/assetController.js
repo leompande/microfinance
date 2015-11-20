@@ -32,8 +32,6 @@
         }
         assetC.loadAssets();
 
-
-
         assetC.saveAssets = function(Assets){
             console.log(Assets);
 

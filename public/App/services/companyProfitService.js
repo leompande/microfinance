@@ -12,7 +12,7 @@
     companyProfitService.$inject = ['$http'];
     function companyProfitService($http) {
         var service = {};
-
+console.log("abcd");
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.GetByUsername = GetByUsername;

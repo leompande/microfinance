@@ -36,6 +36,37 @@
         return newArry;
     };
 })
+.filter("filterDate", function () {
+    return function (input, date_array) {
+        var capital=null;
+        angular.forEach(input,function(value,index){
+            console.log(value);
+            var date = new Date(value.created_at.replace(value.created_at.substr(-9),""));
+            //var begin_date = new Date(start_date);
+            if(date_array[0]==""&&date_array[1]==""){
+                var date = new Date();
+                var start_date = new Date(date.getFullYear(), date.getMonth(), 1);
+                var end_date = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                if(start_date<=date&&date<=end_date){
+                    capital = value;
+                }
+            }else{
+
+                var start_date = new Date(date_array[0]);
+                var end_date = new Date(date_array[1]);
+
+                if(start_date<=date&&date<=end_date){
+                    capital = value;
+                }
+            }
+
+
+
+
+        });
+        return capital;
+    };
+})
 .filter("latestReturn", function () {
     return function (input, id) {
         var objectArry=[];
@@ -79,9 +110,9 @@
                     var done = false;
                     if(!done&&input.applications){
                         if(input.applications.length>0){
-                            angular.forEach(input.applications,function(value,index){console.log(value)
+                            angular.forEach(input.applications,function(value,index){
                                 if(value.status=="pending"){
-                                    objectArry = index;done=true;console.log(input.applications);
+                                    objectArry = index;done=true;
                                 }
                             });
                         }else{

@@ -29,7 +29,11 @@
                                 <input id="from_date" name="date" type="text"  ng-model="end_date" class="form-control" placeholder="To" required="">
                             </datepicker>
                         </div>
-                    </div><div class="col-md-6">
+                        <div class="col-md-1">
+                            <a class="btn btn-primary" ng-click="currentCapital()" ><i class="fa fa-book" ></i>&nbsp;Get</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                     <div class="form-group pull-right">
                         <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-print"></i>Print</button>
                         <!--<input id="asset" name="assets_name" type="text"   ng-model="assetOb.name" class="form-control" placeholder="Asset Name" required="">-->
@@ -49,7 +53,8 @@
                 <div class="col-md-12" style="text-align: center;">{{todays_date}}</div>
             </div>
             <div class="col-md-12">
-                <div class="col-md-6 vertical-line holizontal-line" style="text-align: left;font-weight: bold;">Descriptions</div>
+                <div class="col-md-2 vertical-line holizontal-line" style="text-align: left;font-weight: bold;">Date</div>
+                <div class="col-md-4 vertical-line holizontal-line" style="text-align: left;font-weight: bold;">Descriptions</div>
 
                 <div class="col-md-3 vertical-line holizontal-line" style="text-align: left;font-weight: bold;">Dr.</div>
                 <div class="col-md-3 holizontal-line vertical-line" style="text-align: right;font-weight: bold;">Cr.</div>
@@ -61,11 +66,21 @@
                     }
                 </style>
                 <!--<div class="col-md-12">-->
-                    <div class="col-md-6  vertical-line holizontal-line">
+                    <div class="col-md-2  vertical-line holizontal-line">
                         <table class="table">
                             <tbody>
-                            <tr><td></td></tr>
+                            <tr><td>{{currentC.created_at}}&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                <div class="col-md-4  vertical-line holizontal-line">
+                        <table class="table">
+                            <tbody>
                             <tr><td>Cash</td></tr>
+                            <tr><td>&nbsp;</td></tr>
                             <tr><td>Balance</td></tr>
                             </tbody>
                         </table>
@@ -75,8 +90,8 @@
                         <table class="table">
                             <tbody>
                             <tr><td>0</td></tr>
-                            <tr><td>b</td></tr>
-                            <tr><td>b</td></tr>
+                            <tr><td>0</td></tr>
+                            <tr ><td style="border-top:1px solid #ddd!important;border-bottom:1px solid #ddd!important;">{{currentC.amount}}&nbsp;</td></tr>
                             </tbody>
                         </table>
 
@@ -84,9 +99,9 @@
                     <div class="col-md-3  holizontal-line vertical-line">
                         <table class="table">
                             <tbody>
-                            <tr><td></td></tr>
-                            <tr><td>c</td></tr>
-                            <tr><td>c</td></tr>
+                            <tr><td>{{currentC.amount}}&nbsp;</td></tr>
+                            <tr><td>0</td></tr>
+                            <tr><td style="border-top:1px solid #ddd!important;border-bottom:1px double #ddd!important;">{{currentC.amount}}&nbsp;</td></tr>
                             </tbody>
                         </table>
 
