@@ -52,21 +52,21 @@
 
                         <div class="form-group">
                             <div class="col-sm-6">Return Interval<input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="garntApplication.return_interval" placeholder="Return Interval" required="required" type="text" value=""> </div>
-                            <div class="col-sm-6">Interval Type<br><input class="form-control ng-pristine ng-untouched ng-valid" ng-model="garntApplication.interval_type" placeholder="Interval Type" name="middlename" type="text" value=""> </div>
+                            <div class="col-sm-6">Interval Type<br><input class="form-control ng-pristine ng-untouched ng-valid" ng-model="garntApplication.interval_type" placeholder="Interval Type" name="middlename"  required="required" type="text" value=""> </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-sm-6">Grant Amount<br><input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="garntApplication.loaned_amount" placeholder="Grant Amount" required="required" name="lastname" type="text" value=""> </div>
-                            <div class="col-sm-6">Profit Percent<br>
-                                <input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="garntApplication.profit_percent" required="required" name="lastname" type="text" value="{{}}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-6">Amount To Return<br><input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="garntApplication.amount_to_return" placeholder="Amount To Return" required="required" name="phone" type="text" value=""> </div>
-                            <div class="col-sm-6"><span style="font-size: large;color: #ff0000;">*</span> Amount Per Return (if applicable)<br><input class="form-control ng-pristine ng-untouched ng-valid" ng-model="garntApplication.amount_per_return" placeholder="Amount Per Return" name="postal" type="text" value=""> </div>
-                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-sm-6">Grant Amount<br><input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="garntApplication.loaned_amount" placeholder="Grant Amount" required="required" name="lastname" type="text" value=""> </div>-->
+                            <!--<div class="col-sm-6">Profit Percent<br>-->
+                                <!--<input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="garntApplication.profit_percent" required="required" name="lastname" type="text" value="{{}}">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-sm-6">Amount To Return<br><input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="garntApplication.amount_to_return" placeholder="Amount To Return" required="required" name="phone" type="text" value=""> </div>-->
+                            <!--<div class="col-sm-6"><span style="font-size: large;color: #ff0000;">*</span> Amount Per Return (if applicable)<br><input class="form-control ng-pristine ng-untouched ng-valid" ng-model="garntApplication.amount_per_return" placeholder="Amount Per Return" name="postal" type="text" value=""> </div>-->
+                        <!--</div>-->
                         <div class="form-group">
                             <div class="col-sm-6">Loan Due Date (Expected)<br><input class="form-control ng-pristine ng-untouched ng-invalid ng-invalid-required" ng-model="garntApplication.loan_actual_due_date" placeholder="Residence (Required)" required="required" name="residense" type="text" value=""> </div>
-                            <div class="col-sm-6">Loan Duration<br><input class="form-control hasDatepicker ng-pristine ng-untouched ng-valid" ng-model="garntApplication.loan_duration" placeholder="Loan Duration" name="birthdate" type="text" value=""> </div>
+                            <div class="col-sm-6">Loan Duration<br><input class="form-control hasDatepicker ng-pristine ng-untouched ng-valid" ng-model="garntApplication.loan_duration" placeholder="Loan Duration" name="birthdate" type="text" value=""  required="required" > </div>
                         </div>
 
                     </div>

@@ -27,7 +27,7 @@
         }
 
         function GetById(id) {
-            return $http.get('public/index.php/applicants' + id).then(handleSuccess, handleError('Error getting user by id'));
+            return $http.get('public/index.php/applicants/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
         function Create(applicant) {
@@ -35,11 +35,11 @@
         }
 
         function Update(applicant) {
-            return $http.put('public/index.php/applicants' + applicant.id, applicant).then(handleSuccess, handleError('Error updating user'));
+            return $http.put('public/index.php/applicants/' + applicant.id, applicant).then(handleSuccess, handleError('Error updating user'));
         }
 
         function Delete(id) {
-            return $http.delete('public/index.php/applicants' + id).then(handleSuccess, handleError('Error deleting user'));
+            return $http.delete('public/index.php/applicants/' + id).then(handleSuccess, handleError('Error deleting user'));
         }
 
         // private functions

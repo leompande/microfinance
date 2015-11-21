@@ -1,3 +1,12 @@
+<style>
+    .netralize_table tr td{
+        border: 1px solid #ffffff!important;
+    }
+
+    .netralize_table tr th{
+        border: 1px solid #ffffff!important;
+    }
+</style>
 <div class="col-md-12">
     <div class="panel profile-panel">
         <div class="panel-heading panel-visible">
@@ -51,13 +60,13 @@
         </div>
     </div>
 </div>
-<div class="col-md-6">
+<div class="{{div_class}}" >
     <div class="panel profile-panel">
         <div class="panel-heading panel-visible">
             <div class="panel-title"> <i class="fa fa-user"></i> Applications</div>
             <div class="panel-btns pull-right margin-left">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-success btn-gradient dropdown-toggle btn-sm" data-toggle="dropdown"><i class="fa fa-plus"></i>&nbsp;Add Another</button>
+                    <button ng-if="applicant.applications[0].status=='finished'||no_application" type="button" class="btn btn-success btn-gradient dropdown-toggle btn-sm" data-toggle="dropdown"><i class="fa fa-plus"></i>&nbsp;Add New</button>
                 </div>
             </div>
         </div>
@@ -72,7 +81,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12" >
-                    <table >
+                    <table class="table netralize_table" >
                         <tr >
                             <td>Applicant Name:</td>
                             <th>{{applicant.first_name}}  {{applicant.middle_name}}  {{applicant.last_name}}</th>
@@ -98,9 +107,14 @@
 
                     </table>
                     </br>
+                    <div class="row" ng-if="!no_application">
+                        <div class="col-xs-6" >
+                            <a class="btn btn-sm btn-success" ng-href="#/settings/applications/{{applicant.applications[0].id}}/{{applicant.id}}/grant">Grant Loan</a>
+                        </div>
+                    </div>
                     </br>
                     <div><h4>Sponsor</h4></div>
-                    <table >
+                    <table class="table netralize_table">
                         <tr >
                             <td>Applicant Name:</td>
                             <th>{{applicant.sponsor.first_name}}  {{applicant.sponsor.middle_name}}  {{applicant.sponsor.last_name}}</th>
@@ -150,7 +164,7 @@
         <br/>
         <br/>
         <!--{{applicant.loan_returns}}-->
-<div class="col-md-6">
+<div class="col-md-6" ng-if="applicant.applications[0].status=='granted'">
     <div class="panel profile-panel">
         <div class="panel-heading panel-visible">
             <div class="panel-title"> <i class="fa fa-user"></i>Loan Processing</div>

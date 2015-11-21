@@ -279,8 +279,17 @@
     </div>
     <div id="sidebar-menu">
         <ul class="nav sidebar-nav">
-            <li class="active"> <a ng-href="#/dashboard"><span class="glyphicons glyphicons-star">&nbsp;&nbsp;<i class="fa fa-dashboard "></i></span><span class="sidebar-title">Dashboard</span></a> </li>
-            <li> <a class="accordion-toggle " ><span class="glyphicons glyphicons-settings">&nbsp;&nbsp;<i class="fa fa-rss "></i></span><span class="sidebar-title">Accounts</span><span class="caret"></span></a>
+            <li class="active">
+                <a ng-href="#/dashboard">
+                    <span class="glyphicons glyphicons-star">&nbsp;&nbsp;<i class="fa fa-dashboard "></i></span>
+                    <span class="sidebar-title">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a class="accordion-toggle " >
+                    <span class="glyphicons glyphicons-settings">&nbsp;&nbsp;<i class="fa fa-calculator "></i></span>
+                    <span class="sidebar-title">Accounts</span><span class="caret"></span>
+                </a>
                 <ul id="accounts" class="nav sub-nav">
                     <li><a  ng-href="#/accounts/capital_account"><i class="fa fa-dollar"></i>&nbsp;&nbsp;Capital Account</a></li>
                     <li><a  ng-href="#/accounts/cash_account"><i class="fa fa-money"></i>&nbsp;&nbsp;Cash Account</a></li>
@@ -290,7 +299,10 @@
 
                 </ul>
             </li>
-            <li> <a class="accordion-toggle menu-open" ><span class="glyphicons glyphicons-settings">&nbsp;&nbsp;<i class="fa fa-rss "></i></span><span class="sidebar-title">Applicants</span><span class="caret"></span></a>
+            <li> <a class="accordion-toggle menu-open" >
+                <span class="glyphicons glyphicons-settings">&nbsp;&nbsp;<i class="fa fa-users "></i></span>
+                <span class="sidebar-title">Applicants</span><span class="caret"></span>
+                </a>
                 <ul id="resources" class="nav sub-nav">
                     <li><a  ng-href="#/applicants/add"><i class="fa fa-plus"></i>&nbsp;&nbsp;Add Applicants</a></li>
                     <li><a ng-href="#/applicants/manage"><i class="fa fa-cog"></i>&nbsp;&nbsp;Manage</a></li>
@@ -298,24 +310,23 @@
             </li>
             <li> <a class="accordion-toggle" href="dashboard.html#sideOne"><span class="glyphicons glyphicons-adjust_alt">&nbsp;&nbsp;<i class="fa fa-bar-chart-o "></i></span><span class="sidebar-title">Report</span><span class="caret"></span></a>
                 <ul id="sideOne" class="nav sub-nav">
-                    <li><a href="#"><span class="glyphicons glyphicons-font"></span> Loans</a></li>
-                    <li><a href="#"><span class="fa fa-credit-card"></span> Balance Sheet</a></li>
+                    <li><a href="#"><span class="fa fa-cc-visa"></span> Loans</a></li>
                 </ul>
             </li>
             <li> <a class="accordion-toggle" href="dashboard.html#sideOne"><span class="glyphicons glyphicons-adjust_alt">&nbsp;&nbsp;<i class="fa fa-cogs "></i></span><span class="sidebar-title">Settings</span><span class="caret"></span></a>
                 <ul id="sidethree" class="nav sub-nav">
-                    <li><a ng-href="#/settings/start_capital">&nbsp;&nbsp;Start Capital</a></li>
-                    <li><a ng-href="#/settings/loans">&nbsp;&nbsp;Loans</a></li>
-                    <li><a  ng-href="#/settings/applications">&nbsp;&nbsp;Applications</a></li>
-                    <li><a  ng-href="#/settings/expenses">&nbsp;&nbsp;Expenses</a></li>
-                    <li><a  ng-href="#/settings/liabilities">&nbsp;&nbsp;Liabilites</a></li>
-                    <li><a ng-href="#/settings/assets">&nbsp;&nbsp;Assets</a></li>
+                    <li><a ng-href="#/settings/start_capital"><span class="fa fa-bank"></span>&nbsp;&nbsp;Start Capital</a></li>
+                    <li><a ng-href="#/settings/loans"><span class="fa fa-cc-visa"></span>&nbsp;&nbsp;Loans</a></li>
+                    <li><a  ng-href="#/settings/applications"><span class="fa fa-briefcase"></span>&nbsp;&nbsp;Applications</a></li>
+                    <li><a  ng-href="#/settings/expenses"><span class="fa fa-scissors"></span>&nbsp;&nbsp;Expenses</a></li>
+                    <li><a  ng-href="#/settings/liabilities"><span class="fa fa-bitbucket"></span>&nbsp;&nbsp;Liabilites</a></li>
+                    <li><a ng-href="#/settings/assets"><span class="fa fa-tv"></span>&nbsp;&nbsp;Assets</a></li>
                 </ul>
             </li>
-            <li> <a class="accordion-toggle" href="dashboard.html#sideOne"><span class="glyphicons glyphicons-adjust_alt">&nbsp;&nbsp;<i class="fa fa-cogs "></i></span><span class="sidebar-title">User Management</span><span class="caret"></span></a>
+            <li> <a class="accordion-toggle" href="dashboard.html#sideOne"><span class="glyphicons glyphicons-adjust_alt">&nbsp;&nbsp;<i class="fa fa-user "></i></span><span class="sidebar-title">User Management</span><span class="caret"></span></a>
                 <ul id="sidethrees" class="nav sub-nav">
-                    <li><a ng-href="#/users/add">&nbsp;&nbsp;Add User</a></li>
-                    <li><a  ng-href="#/users/manage">&nbsp;&nbsp;Manage</a></li>
+                    <li><a ng-href="#/users/add"><i class="fa fa-user-plus"></i>&nbsp;&nbsp;Add User</a></li>
+                    <li><a  ng-href="#/users/manage"><i class="fa fa-wrench"></i>&nbsp;&nbsp;Manage</a></li>
                 </ul>
             </li>
 

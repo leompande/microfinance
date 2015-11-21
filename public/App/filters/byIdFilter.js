@@ -21,7 +21,7 @@
     };
 })
 .filter("filterByType", function () {
-    return function (input, type) {console.log(input);
+    return function (input, type) {
         var newArry=[];
         if(angular.isDefined(input)){
             angular.forEach(input,function(value,index){

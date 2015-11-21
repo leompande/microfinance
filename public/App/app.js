@@ -41,6 +41,9 @@
             .when('/applicant/:id', {
                 templateUrl: "public/App/partials/applicants/view.html",
                 controller:"applicantController"
+            }).when('/applicant/:id/edit', {
+                templateUrl: "public/App/partials/applicants/edit.html",
+                controller:"applicantController"
             })
             .when('/applicant/:id/application', {
                 templateUrl: "public/App/partials/applicants/applications.html",
@@ -61,9 +64,10 @@
                 templateUrl: "public/App/partials/accounts/finance/cash_account.html"
             }).when('/accounts/income_statement', {
                 templateUrl: "public/App/partials/accounts/finance/income_statement.html"
-            }).when('/accounts/balance_sheet', {
-                templateUrl: "public/App/partials/accounts/finance/balance_sheet.html"
             })
+            //.when('/accounts/balance_sheet', {
+            //    templateUrl: "public/App/partials/accounts/finance/balance_sheet.html"
+            //})
             .when('/settings/loans', {
                 templateUrl: "public/App/partials/settings/loans/index.html",
                 controller:"loanController"

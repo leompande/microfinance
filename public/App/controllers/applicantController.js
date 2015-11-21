@@ -22,11 +22,13 @@
                 .withDisplayLength(10)
                 .withOption('bLengthChange', true);
 
-
-            ApplicantService.GetAll().then(function(data){
-            applicant.appllicants  = data;
-            $scope.applicants  = data;
-            });
+            applicant.loadApplicants = function(){
+                ApplicantService.GetAll().then(function(data){
+                    applicant.appllicants  = data;
+                    $scope.applicants  = data;
+                });
+            }
+            applicant.loadApplicants();
 
 
         /**
@@ -97,6 +99,46 @@
                     }, 1000);
                 });
             }
+        }
+
+        applicant.updateLoanApplicant = function(updatedUpplicant){
+
+            $scope.applicant = null;
+            $scope.success = false;
+            $scope.failure = false;
+            if(updatedUpplicant){
+
+                ApplicantService.Update(updatedUpplicant).then(function(respense){
+                    if(respense=="success"){
+                        $scope.applicant = null;
+                        $scope.success = true;
+                        $scope.failure = false;
+
+                        $timeout(function () {
+                            $scope.applicant = null;
+                            $scope.success = false;
+                            $scope.failure = false;
+                        }, 1000);
+
+
+                    }
+                },function(respense){
+                    $scope.failure = true;
+                    $scope.success = false;
+                    $timeout(function () {
+                        $scope.success = false;
+                        $scope.failure = false;
+                    }, 1000);
+                });
+            }
+        }
+
+        applicant.deleteLoanApplicant = function(application_id){
+            ApplicantService.Delete(application_id).then(function(status){
+                applicant.loadApplicants();
+            },function(status){
+
+            });
         }
 
         applicant.info = function(){

@@ -90,7 +90,26 @@ class ApplicantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $applicant = Applicant::find($id);
+        $applicant->first_name = $request->first_name;
+        $applicant->middle_name = $request->middle_name;
+        $applicant->last_name = $request->last_name;
+        $applicant->gender = $request->gender;
+        $applicant->birth_date = $request->birth_date;
+        $applicant->phone = $request->phone;
+        $applicant->postal_address = $request->postal_address;
+        $applicant->marital_status = $request->marital_status;
+        $applicant->residence = $request->residence;
+        $applicant->family_size = $request->family_size;
+
+
+        if($applicant->save()){
+            return "success";
+        }else{
+            return "failure";
+        }
+
+
     }
 
     /**
@@ -101,6 +120,11 @@ class ApplicantController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $applicant = Applicant::find($id);
+        if($applicant->destroy($id)){
+            return "success";
+        }else{
+            return "failure";
+        }
     }
 }

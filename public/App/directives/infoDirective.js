@@ -9,9 +9,20 @@
     .directive("info", function () {
         return {
             link: function (scope, element, attrs) {
-
+                    scope.div_class="col-md-6";
+                    scope.no_application = false;
                     scope.$watch('applicant',function(newValue,oldOne){
                         scope.applicant = newValue;
+                        if(scope.applicant.applications.length>0){
+                            if(newValue!=null&&newValue.applications[0].status=="pending"){
+                                scope.div_class="col-md-12";
+
+                            }
+                        }else{
+                            scope.div_class="col-md-12";
+                            scope.no_application = true;
+                        }
+
                         if(scope.applicant){
                             var dates = [];
                             var ddt = [];

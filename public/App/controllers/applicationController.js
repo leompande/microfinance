@@ -31,7 +31,6 @@
         application.grantLoan = function(grantApplication){
             grantApplication.applicant_id = $routeParams.applicant_id;
             grantApplication.application_id = $routeParams.id;
-            console.log(grantApplication);
             GrantService.Create(grantApplication).then(function(resposne){
 
             },function(resposne){
