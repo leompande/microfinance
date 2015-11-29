@@ -41,6 +41,7 @@ class AssetController extends Controller
         $asset = new Asset();
 
         $asset->name = $request->name;
+        $asset->type = $request->type;
         $asset->value = $request->value;
         $asset->date = $request->date;
 
@@ -85,6 +86,9 @@ class AssetController extends Controller
         $asset = Asset::find($id);
 
         $asset->name = $request->name;
+        $asset->type = $request->type;
+        $asset->value = $request->value;
+        $asset->date = $request->date;
 
         if(!$asset->save()){
             return "failed";

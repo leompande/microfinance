@@ -9,8 +9,8 @@
         .module('microfinanceApp')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http'];
-    function UserService($http) {
+    UserService.$inject = ['$http','UtilityService'];
+    function UserService($http,UtilityService) {
         var service = {};
 
         service.GetAll = GetAll;

@@ -29,61 +29,52 @@
         </div>
     </form>
 </div>
+<div class="row"  id="printable_area">
     <div class="col-md-12">
 <div class="row">
     <div class="col-md-12" style="text-align: center;"><h3>{{company[0].company_name}}</h3></div>
 </div>
     <div class="row">
-    <div class="col-md-12" style="text-align: center;"><h4>Balance Sheet</h4></div>
-</div>
+    <div class="col-md-12" style="text-align: center;"><h4>STATEMENT OF FINANCIAL POSITION AS AT {{start_date}} AND {{end_date}}</h4></div>
     </div>
-    <div class="row">
-    <div class="col-md-12" style="text-align: center;">{{todays_date}}</div>
-</div>
-    <div class="col-md-12"><hr/></div>
+    </div>
 <div class="col-md-12">
-    <style>
-        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
-            border-top:1px solid #ffffff!important;
-        }
-    </style>
     <div class="row">
-    <div class="col-md-6">
-        <table class="table">
-            <tbody>
-            <tr ><th style="border-bottom: 1px solid #ddd;">Assets</th><th ></th></tr>
-            <tr ng-repeat="asset in assets"><td>{{asset.name}}</td><td style="text-align: right;">{{asset.value}}</td></tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="col-md-6">
-        <table class="table">
-            <tbody>
-            <tr ><th style="border-bottom: 1px solid #ddd;">Liabilities</th><th ></th></tr>
-            <tr ng-repeat="liability in liabilities"><td>{{liability.liabilities.name}}</td><td style="text-align: right">{{liability.amount}}</td></tr>
-            </tbody>
-        </table>
-
-    </div>
+        <div class="col-md-12" style="text-align: right;">{{todays_date}}</div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-        <table class="table" style="margin-bottom: ">
+    <div class="col-md-12">
+        <table class="table table-bordered table-widget">
+            <thead>
+            <tr>
+                <th style="width: 100px!important;">Date</th>
+                <th>Particulars</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
             <tbody>
-            <tr><th>Total Assets</th><td style="border-top:1px solid #ddd!important;border-bottom:1px double #ddd!important;text-align: right;"> {{total_assets}}</td></tr>
+            <tr style="border-bottom: 2px solid #CCCCCC!important;border-top: 2px solid #CCCCCC!important;"><th></th><th >Fixed Assets</th><th ></th></tr>
+            <tr ng-repeat="asset in fixedAssets"><td>{{asset.date|toHumaReadable}}</td><td>{{asset.name}}</td><td style="text-align: right;">{{asset.value}}</td></tr>
+            <tr ><th ></th><td >Total Fixed Assets</td><th style="text-align: right;">{{totalFixedAssets}}</th></tr>
+            <tr style="border-bottom: 2px solid #CCCCCC!important;border-top: 2px solid #CCCCCC!important;"><th></th><th >Current Assets</th><th ></th></tr>
+            <tr ng-repeat="asset in currentAssets"><td>{{asset.date|toHumaReadable}}</td><td>{{asset.name}}</td><td style="text-align: right;">{{asset.value}}</td></tr>
+            <tr ><th ></th><td >Total Current Assets</td><th style="text-align: right;">{{totalCurrentAssets}}</th></tr>
+            <tr ><th></th><th >TOTAL ASSET</th><th style="text-align: right;border-bottom: 3px double #cccccc!important;border-top: 2px solid #cccccc!important;">{{totalCurrentAssets+totalFixedAssets}}</th></tr>
+            <tr ><th ></th><th ></th><th ></th></tr>
+            <tr style="border-bottom: 2px solid #CCCCCC!important;border-top: 2px solid #CCCCCC!important;"><th></th><th >less CURRENT LIABILITIES</th><th ></th></tr>
+            <tr ><th ></th><th ></th><th ></th></tr>
+            <tr ><th ></th><th ></th><th ></th></tr>
+            <tr ><th ></th><th ></th><th ></th></tr>
+            <tr style="border-bottom: 2px solid #CCCCCC!important;border-top: 2px solid #CCCCCC!important;"><th></th><th >CAPITAL</th><th ></th></tr>
+            <tr ><td></td><td >Owners Equity</td><td ></td></tr>
+            <tr ><th></th><th >Retained Profit</th><th ></th></tr>
+            <tr ><th ></th><th ></th><th ></th></tr>
             </tbody>
         </table>
-        </div>
-    <div class="col-md-6">
-        <table class="table">
-            <tbody>
-            <tr><th>Total Liabilities</th><td style="border-top:1px solid #ddd!important;border-bottom:1px double #ddd!important;text-align: right;"> {{total_liabilities}}</td></tr>
-            </tbody>
-        </table>
-    </div>
     </div>
     </div>
 <div style="margin-bottom: 20px;"></div>
+</div>
 </div>
 </div>
 </div>

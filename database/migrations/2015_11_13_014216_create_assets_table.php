@@ -15,6 +15,7 @@ class CreateAssetsTable extends Migration
         Schema::create('assets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('type');
             $table->string('value');
             $table->dateTime('date');
             $table->integer('created_by');

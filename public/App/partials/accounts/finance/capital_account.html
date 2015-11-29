@@ -20,107 +20,67 @@
                 <form>
                     <div class="col-md-6">
                         <div class="col-md-3">
-                            <datepicker date-format="yyyy-MM-dd">
-                                <input id="to_date" name="date" type="text"  ng-model="start_date" class="form-control" placeholder="From" required="">
-                            </datepicker>
+                                <input id="to_date" datepicker name="date" type="text"  ng-model="start_date" class="form-control" placeholder="From" required="">
                         </div>
                         <div class="col-md-3">
-                            <datepicker date-format="yyyy-MM-dd">
-                                <input id="from_date" name="date" type="text"  ng-model="end_date" class="form-control" placeholder="To" required="">
-                            </datepicker>
-                        </div>
+                                <input id="from_date" datepicker name="date" type="text"  ng-model="end_date" class="form-control" placeholder="To" required="">
+                         </div>
                         <div class="col-md-1">
-                            <a class="btn btn-primary" ng-click="currentCapital()" ><i class="fa fa-book" ></i>&nbsp;Get</a>
+                            <a class="btn btn-primary" ng-click="getCapitalAccount()" ><i class="fa fa-book" ></i>&nbsp;Get</a>
                         </div>
                     </div>
                     <div class="col-md-6">
                     <div class="form-group pull-right">
-                        <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-print"></i>Print</button>
+                        <button class="btn btn-primary btn-sm" ng-click="printCapitalAccount()" type="button"><i class="fa fa-print"></i>Print</button>
                         <!--<input id="asset" name="assets_name" type="text"   ng-model="assetOb.name" class="form-control" placeholder="Asset Name" required="">-->
                     </div>
                 </div>
                 </form>
             </div>
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12" style="text-align: center;"><h3>{{company[0].company_name}}</h3></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12" style="text-align: center;"><h4>Capital Account</h4></div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12" style="text-align: center;">{{todays_date}}</div>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-2 vertical-line holizontal-line" style="text-align: left;font-weight: bold;">Date</div>
-                <div class="col-md-4 vertical-line holizontal-line" style="text-align: left;font-weight: bold;">Descriptions</div>
-
-                <div class="col-md-3 vertical-line holizontal-line" style="text-align: left;font-weight: bold;">Dr.</div>
-                <div class="col-md-3 holizontal-line vertical-line" style="text-align: right;font-weight: bold;">Cr.</div>
-            </div>
-            <div class="col-md-12">
-                <style>
-                    .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
-                        border-top:1px solid #ffffff!important;
-                    }
-                </style>
-                <!--<div class="col-md-12">-->
-                    <div class="col-md-2  vertical-line holizontal-line">
-                        <table class="table">
-                            <tbody>
-                            <tr><td>{{currentC.created_at}}&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td></tr>
-                            <tr><td>&nbsp;</td></tr>
-                            </tbody>
-                        </table>
-
+            <div class="row"  id="printable_area">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center;"><h3>{{company[0].company_name}}</h3></div>
                     </div>
-                <div class="col-md-4  vertical-line holizontal-line">
-                        <table class="table">
-                            <tbody>
-                            <tr><td>Cash</td></tr>
-                            <tr><td>&nbsp;</td></tr>
-                            <tr><td>Balance</td></tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                    <div class="col-md-3  vertical-line holizontal-line">
-                        <table class="table">
-                            <tbody>
-                            <tr><td>0</td></tr>
-                            <tr><td>0</td></tr>
-                            <tr ><td style="border-top:1px solid #ddd!important;border-bottom:1px solid #ddd!important;">{{currentC.amount}}&nbsp;</td></tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                    <div class="col-md-3  holizontal-line vertical-line">
-                        <table class="table">
-                            <tbody>
-                            <tr><td>{{currentC.amount}}&nbsp;</td></tr>
-                            <tr><td>0</td></tr>
-                            <tr><td style="border-top:1px solid #ddd!important;border-bottom:1px double #ddd!important;">{{currentC.amount}}&nbsp;</td></tr>
-                            </tbody>
-                        </table>
-
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: center;"><h4>CAPITAL ACCOUNT AS AT {{start_date}} AND {{end_date}}</h4></div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <table class="table" >
-                            <tbody></tbody>
-                        </table>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12" style="text-align: right;">{{todays_date}}</div>
                     </div>
-                    <div class="col-md-6">
-                        <table class="table">
-                            <tbody></tbody>
-                        </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-bordered table-widget">
+                                <thead>
+                                <tr>
+                                    <th style="width: 100px!important;">Date</th>
+                                    <th>Particulars</th>
+                                    <th>DR</th>
+                                    <th>CR</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ><td>{{current_year}}-01-01</td><td>Balance b/d</td><td></td><td style="text-align: right;">{{balance_bd_last_year}}</td></tr>
+                                <tr ng-repeat="cashed in cash"><td>{{cashed.created_at|toHumaReadable}}</td><td>Cash</td><td></td><td style="text-align: right;">{{cashed.amount}}</td></tr>
+                                <tr ng-repeat="loaned in loan"><td >{{loaned.created_at|toHumaReadable}}</td><td >Loan</td><td></td><td style="text-align: right;">{{loaned.amount}}</td></tr>
+
+                                <tr >
+                                    <td ></td>
+                                    <td >Balance c/d</td>
+                                    <th style="border-bottom: 2px solid #CCCCCC!important;border-top: 2px solid #CCCCCC!important;text-align: right;">{{total_loan_and_cash_and_balance}}</th>
+                                    <th ></th>
+                                </tr>
+                                <tr ><td ></td><td ></td><th style="border-bottom: 3px double #CCCCCC!important;border-top: 2px solid #CCCCCC!important;text-align: right">{{total_loan_and_cash_and_balance}}</th><th style="border-bottom: 3px double #CCCCCC!important;border-top: 2px solid #CCCCCC!important;text-align: right">{{total_loan_and_cash_and_balance}}</th></tr>
+                                <tr ><td >{{(current_year+1)}}-01-01</td><td >Balance b/d</td><td></td><th style="text-align: right;">{{balance_bd_last_year+total_loan_and_cash_and_balance}}</th></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                    <div style="margin-bottom: 20px;"></div>
                 </div>
             </div>
-            <div style="margin-bottom: 20px;"></div>
         </div>
     </div>
 </div>

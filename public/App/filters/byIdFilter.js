@@ -171,6 +171,16 @@
 
                 return objectArry;
             };
+        })
+.filter("toHumaReadable", function () {
+            return function (input) {
+                var newDate = [];
+                if(angular.isDefined(input)){
+                    newDate = input.split(" ");
+                }
+
+                return newDate[0];
+            };
         });
 
 })();

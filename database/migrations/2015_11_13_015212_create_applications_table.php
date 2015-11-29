@@ -19,6 +19,7 @@ class CreateApplicationsTable extends Migration
             $table->integer('sponsor_id');
             $table->string('applied_amount');
             $table->string('amount_granted');
+            $table->string('application_fee');
             $table->string('status');
             $table->string('comments');
             $table->string('collateral');

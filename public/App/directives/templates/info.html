@@ -66,7 +66,7 @@
             <div class="panel-title"> <i class="fa fa-user"></i> Applications</div>
             <div class="panel-btns pull-right margin-left">
                 <div class="btn-group">
-                    <button ng-if="applicant.applications[0].status=='finished'||no_application" type="button" class="btn btn-success btn-gradient dropdown-toggle btn-sm" data-toggle="dropdown"><i class="fa fa-plus"></i>&nbsp;Add New</button>
+                    <a ng-href="#/applicant/{{applicant.id}}/application" ng-if="real_status=='finished'" type="button" class="btn btn-success btn-gradient dropdown-toggle btn-sm" data-toggle="dropdown"><i class="fa fa-plus"></i>&nbsp;Add New</a>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
                     </br>
                     <div class="row" ng-if="!no_application">
                         <div class="col-xs-6" >
-                            <a class="btn btn-sm btn-success" ng-href="#/settings/applications/{{applicant.applications[0].id}}/{{applicant.id}}/grant">Grant Loan</a>
+                            <a class="btn btn-sm btn-success" ng-if="pending" ng-href="#/settings/applications/{{applicant.applications[0].id}}/{{applicant.id}}/grant">Grant Loan</a>
                         </div>
                     </div>
                     </br>
@@ -179,39 +179,38 @@
                  <div class="col-xs-12">
                      <div>
                          <div>
-                             <div class="col-xs-8"><h4>Current Payment</h4></div>
-                             <div class="col-xs-4"> date: 28 May 2015</div>
+                             <div class="col-xs-8"><h4>Loan Returns Payment</h4></div>
                          </div>
                          <span ng-repeat="a_return in applicant.loan_returns | latestReturn:a_return">{{a_return.created_at}}</span>
                          <div class="col-xs-12">
-                             <div class="col-xs-6"> Amount to Pay: {{amount_to_return}}</div>
-                             <div class="col-xs-6"> Loaned: {{last_payment.amount}}</div>
+                             <div class="col-xs-12">Total Amount To Return: {{totalAmountExpectedToReturn}}</div>
+                         </div>
+                         <div class="col-xs-12">
+                             <div class="col-xs-12">Total Amount  Returned Already: {{amountReturnedAlready}}</div>
+                         </div>
+                         <div class="col-xs-12">
+                             <div class="col-xs-12">Expected Amount To Return Today: {{amountExpectedToReturnToday}}</div>
                              </div>
                           <div class="col-xs-12">
-                             <div class="col-xs-6"> Amount Per return : {{amount_to_return}}</div>
-                             <div class="col-xs-6">Balance: 74862151</div>
+                             <div class="col-xs-12">Amount Left To Finish Loan: {{amountLeftToFinish}}</div>
                          </div>
 
                          <div class="col-xs-12">
-                             <form method="POST"  accept-charset="UTF-8" class="form-horizontal" >
-                                 <input name="_token" type="hidden" value="556JuRQ6PsesxtHqZVHfxGgmMpTJIOGcEG5BwwLk">
-                                 <div class="form-group">
-                                     <div class="col-xs-6">
-
+                             <form method="POST"  accept-charset="UTF-8" class="form-horizontal"  ng-submit="returnLoan(loanReturn)">
+                                <div class="form-group">
+                                   <div class="col-xs-12">
                                          <div class="form-group">
-                                             <label for="amount">Returned Amount</label>
-                                             <input pattern="\d*" id="amount" class="form-control" placeholder="Returned Amount" required="required" name="return" type="text" value="">
-                                         </div>
+                                         <label for="amount">Returned Amount</label>
+                                         <input pattern="\d*" id="amount" ng-model="loanReturn.amount" class="form-control" placeholder="Returned Amount" required="required" name="return" type="text" value="">
+                                   </div>
                                      </div>
-
-                                     <div class="col-xs-6">
-                                         <div class="form-group">
-                                             <label for="returndate">Date</label>
-                                             <input class="form-control hasDatepicker" placeholder="Start Year" required="required" id="returndate" name="returndate" type="text" value="2015-06-11">
-                                         </div>
+                                     <div class="form-group">
+                                     <div class="col-xs-12">
+                                        <label for="comments">Comments</label>
+                                        <br>
+                                        <textarea id="comments" rows="3" ng-model="loanReturn.comment" class="form-control" placeholder="Comments (If any)" required="required" name="comments" cols="50"></textarea>
                                      </div>
-
-                                     <div class="col-xs-12">comments<br><textarea rows="3" class="form-control" placeholder="Comments (If any)" required="required" name="comments" cols="50"></textarea> </div>
+                                     </div>
                                  </div>
                                  <div id="output6"></div>
                                  <div class="form-group text-center">

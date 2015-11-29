@@ -39,7 +39,21 @@ class LoanReturnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /// Add return
+        $return = new LoanReturn();
+        $return->application_id = $request->application_id;
+        $return->applicant_id = $request->applicant_id;
+        $return->granted_id = $request->granted_id;
+        $return->amount = $request->amount;
+        $return->received_profit = $request->received_profit;
+        $return->next_amount_to_return = $request->next_amount_to_return;
+        $return->interval_count = $request->interval_count;
+        $return->comment = $request->comment;
+        $return->created_by = $request->created_by;
+
+        if($return->save()){
+            return "success";
+        }
     }
 
     /**

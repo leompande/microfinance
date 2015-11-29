@@ -10,8 +10,8 @@
         .module('microfinanceApp')
         .factory('ExpensesService', ExpensesService);
 
-    ExpensesService.$inject = ['$http'];
-    function ExpensesService($http) {
+    ExpensesService.$inject = ['$http','UtilityService'];
+    function ExpensesService($http,UtilityService) {
         var service = {};
 
         service.GetAll = GetAll;
@@ -19,6 +19,8 @@
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
+        service.totalExpenses = totalExpenses;
+        service.GetExpensesInDate = GetExpensesInDate;
 
         return service;
 
@@ -40,6 +42,39 @@
 
         function Delete(id) {
             return $http.delete('public/index.php/expenses/' + id).then(handleSuccess, handleError('Error deleting user'));
+        }
+
+
+        function totalExpenses(expenses) {
+            var total = 0;
+            angular.forEach(expenses,function(value,index){
+               total+=Number(value.value);
+            });
+
+            return total;
+        }
+
+        function GetExpensesInDate(data,start_date,end_date) {
+            var expenses = [];
+            var i = 0;
+            angular.forEach(data,function(value,index){
+                var date_created = UtilityService.DateReformatt(value.created_at);
+                var date_one = new Date(start_date);
+                var date_two = new Date(end_date);
+                    var expense = {id:i,name:value.name,value:0,created_at:""};
+                i++;
+                angular.forEach(value.expenses_transactions,function(valueEx,indexEx){
+                if(UtilityService.DateToTimestamp(date_one)<= UtilityService.DateToTimestamp(date_created) || UtilityService.DateToTimestamp(date_created) <= UtilityService.DateToTimestamp(date_two)){
+                    expense.value = valueEx.amount;
+                    expense.created_at = valueEx.created_at;
+                    expenses.push(expense);
+                        console.log(value);
+
+                    }
+                });
+
+            });
+            return expenses;
         }
 
         // private functions

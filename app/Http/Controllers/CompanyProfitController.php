@@ -39,7 +39,15 @@ class CompanyProfitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $company = new CompanyProfit();
+        $company->source_type = $request->source_type;
+        $company->amount = $request->amount;
+
+        if($company->save()){
+            return "success";
+        }else{
+            return "false";
+        }
     }
 
     /**

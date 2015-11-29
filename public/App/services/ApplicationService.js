@@ -10,8 +10,8 @@
         .module('microfinanceApp')
         .factory('ApplicationService',ApplicationService);
 
-    ApplicationService.$inject = ['$http'];
-    function ApplicationService($http) {
+    ApplicationService.$inject = ['$http','UtilityService'];
+    function ApplicationService($http,UtilityService) {
         var service = {};
 
         service.GetAll = GetAll;
@@ -19,6 +19,8 @@
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
+        service.GetApplicationFeesBydate= GetApplicationFeesBydate;
+        service.GetAmountToReturn= GetAmountToReturn;
 
         return service;
 
@@ -40,6 +42,49 @@
 
         function Delete(id) {
             return $http.delete('public/index.php/applications' + id).then(handleSuccess, handleError('Error deleting user'));
+        }
+
+
+        function GetApplicationFeesBydate(data,start_date,end_date) {
+
+            var total = 0;
+
+            angular.forEach(data,function(value,index){
+                var date_created = UtilityService.DateReformatt(value.created_at);
+                var date_one = new Date(start_date);
+                var date_two = new Date(end_date);
+                if(UtilityService.DateToTimestamp(date_one)<= UtilityService.DateToTimestamp(date_created) || UtilityService.DateToTimestamp(date_created) <= UtilityService.DateToTimestamp(date_two)){
+                    if(isNaN(value.application_fee)||value.application_fee==null){}else{
+                        total+=Number(value.application_fee);
+                    }
+
+                }
+            });
+            return total;
+        }
+
+
+        function GetAmountToReturn(application,grantApplication) {
+            var loaned_amount = application.applied_amount;
+            var percent_profit = Number(application.loan.profit_percent)/100;
+            var return_interval = grantApplication.return_interval;
+            var loan_duration = grantApplication.loan_duration;
+            var loan_routine = Number(loan_duration)/Number(return_interval);
+            var amount_per_interval = Math.ceil(loaned_amount/loan_routine);
+            var expected_returns = [];
+
+            var total_amount = 0;
+            var total_amount_payed = 0;
+
+            for(var increment= 0;increment<loan_routine;increment++){
+
+                expected_returns[increment] = amount_per_interval+(loaned_amount-total_amount_payed)*percent_profit;
+
+                total_amount_payed += amount_per_interval;
+
+            }
+          return JSON.stringify(expected_returns);
+
         }
 
         // private functions

@@ -8,9 +8,9 @@
         .module('microfinanceApp')
         .controller('applicationController', applicationController);
 
-    applicationController.$inject = ['$scope','$cookies','$timeout','$routeParams','$window','$filter','AuthenticationService','ApplicantService','ApplicationService','GrantService','DTOptionsBuilder'];
+    applicationController.$inject = ['$scope','$cookies','$timeout','$routeParams','$window','$filter','$location','AuthenticationService','ApplicantService','ApplicationService','GrantService','DTOptionsBuilder'];
 
-    function applicationController($scope,$cookies,$timeout,$routeParams,$window,$filter,AuthenticationService,ApplicantService,ApplicationService,GrantService,DTOptionsBuilder) {
+    function applicationController($scope,$cookies,$timeout,$routeParams,$window,$filter,$location,AuthenticationService,ApplicantService,ApplicationService,GrantService,DTOptionsBuilder) {
         var application = this;
         application.appllications = {};
         $scope.grantApplication = {};
@@ -31,8 +31,10 @@
         application.grantLoan = function(grantApplication){
             grantApplication.applicant_id = $routeParams.applicant_id;
             grantApplication.application_id = $routeParams.id;
+            grantApplication.loaned_amount = $scope.applicationInfo.applied_amount;
+            grantApplication.amount_to_return = ApplicationService.GetAmountToReturn($scope.applicationInfo,grantApplication);
             GrantService.Create(grantApplication).then(function(resposne){
-
+                 $location.path("/applicant/"+$routeParams.applicant_id+"/application");
             },function(resposne){
 
             });

@@ -19,6 +19,10 @@
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
+        service.FixedAsset = FixedAsset;
+        service.TotalFixedAsset = TotalFixedAsset;
+        service.CurrentAsset = CurrentAsset;
+        service.TotalCurrentAsset = TotalCurrentAsset;
 
         return service;
 
@@ -40,6 +44,48 @@
 
         function Delete(id) {
             return $http.delete('public/index.php/assets/' + id).then(handleSuccess, handleError('Error deleting user'));
+        }
+
+        function FixedAsset(assets) {
+            var fixed_assets = [];
+            angular.forEach(assets,function(value,index){
+                if(value.type=="Fixed Asset"){
+                    fixed_assets.push(value);
+                }
+            });
+
+            return fixed_assets;
+        }
+        function TotalFixedAsset(assets) {
+            var total_fixed_assets = 0;
+            angular.forEach(assets,function(value,index){
+                if(value.type=="Fixed Asset"){
+                    total_fixed_assets +=Number(value.value);
+                }
+            });
+
+            return total_fixed_assets;
+        }
+
+        function CurrentAsset(assets) {
+            var current_assets = [];
+            angular.forEach(assets,function(value,index){
+                if(value.type=="Current Asset"){
+                    current_assets.push(value);
+                }
+            });
+
+            return current_assets;
+        }
+        function TotalCurrentAsset(assets) {
+            var total_current_assets = 0;
+            angular.forEach(assets,function(value,index){
+                if(value.type=="Current Asset"){
+                    total_current_assets += Number(value.value);
+                }
+            });
+
+            return total_current_assets;
         }
 
         // private functions

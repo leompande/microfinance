@@ -20,6 +20,8 @@ class CreateLoanReturnsTable extends Migration
             $table->string('amount');
             $table->string('received_profit');
             $table->string('next_amount_to_return');
+            $table->string('interval_count');
+            $table->text('comment')->nullable();
             $table->date('date');
             $table->string('created_by');
             $table->timestamps();

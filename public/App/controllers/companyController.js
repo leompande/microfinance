@@ -26,10 +26,19 @@
                 company.company   = data;
                 $scope.company    = data[0];
                 $scope.companyAcc = data[1];
+                $scope.capitals = data;
                 $scope.start_amount = data[0].amount;
             });
         }
         company.loadProfit();
+
+        $scope.getCapitalAccount = function(){
+            companyProfitService.GetAll().then(function(data){
+                console.log(data);
+            },function(response){
+                console.log(response);
+            });
+        }
 
 
 
@@ -41,8 +50,31 @@
         $scope.message = "";
         $scope.current = null;
         $scope.edit = false;
+        $scope.decidedClass="col-md-12";
+        $scope.formOpen = false;
 
 
+        $scope.injectCapital = function(){
+            console.log($scope.decidedClass);
+            $scope.decidedClass="col-md-8";
+            $scope.formOpen = true;
+        }
+        $scope.closeInjectCapital = function(){
+            console.log($scope.decidedClass);
+            $scope.decidedClass="col-md-12";
+            $scope.formOpen = false;
+        }
+        $scope.saveCapital = function(capital){
+            companyProfitService.Create(capital).then(function(response){
+                if(response=="success"){
+                    company.loadProfit();
+                    $scope.edit_transaction = false;
+                    $scope.add_transaction = true
+                }
+            },function(){
+
+            });
+        }
         $scope.editStartCapital = function(){
             $scope.edit = true;
         }

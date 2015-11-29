@@ -59,6 +59,7 @@ class ApplicationController extends Controller
             $application->loan_id = $request->loan_id;
             $application->sponsor_id  = $sponsor->id;
             $application->applied_amount = $request->applied_amount;
+            $application->application_fee = $request->application_fee;
             $application->status = "pending";
             $application->comments = $request->comments;
             $application->collateral = $request->collateral;

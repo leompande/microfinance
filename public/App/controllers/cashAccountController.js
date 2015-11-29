@@ -9,8 +9,8 @@
         .module('microfinanceApp')
         .controller('cashAccountController',cashAccountController);
 
-    cashAccountController.$inject = ['$scope','$cookies','$timeout','$routeParams','$window','$filter','AuthenticationService','companyProfitService','CompanyService','FinanceService','DTOptionsBuilder'];
-    function cashAccountController($scope,$cookies,$timeout,$routeParams,$window,$filter,AuthenticationService,companyProfitService,CompanyService,FinanceService,DTOptionsBuilder) {
+    cashAccountController.$inject = ['$scope','$cookies','$timeout','$routeParams','$window','$filter','AuthenticationService','companyProfitService','CompanyService','FinanceService','LoanReturnService','ApplicantService','ExpensesService','GrantService','UtilityService','DTOptionsBuilder'];
+    function cashAccountController($scope,$cookies,$timeout,$routeParams,$window,$filter,AuthenticationService,companyProfitService,CompanyService,FinanceService,LoanReturnService,ApplicantService,ExpensesService,GrantService,UtilityService,DTOptionsBuilder) {
         $scope.cash = [];
         var demo = [{
             id: "3",
@@ -30,17 +30,26 @@
             },
             liabilities: null
         }];
+        var date = new Date();
+
         $scope.company = null;
         $scope.company = null;
-        var initial_date = new Date();
-        $scope.start_date = initial_date;
-        $scope.end_date = initial_date;
+        var date = new Date();
+        $scope.current_year = date.getFullYear();
+        $scope.todays_date = (date.toDateString());
+        $scope.balance_date = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+        $scope.start_date = date.getFullYear()+"-"+(date.getMonth()+1)+"-01";
+        $scope.end_date = $scope.balance_date;
+        $scope.loan_receipts = null;
         $scope.totalExpensesByDate = 0;
         $scope.capitalByDate = 0;
         $scope.totalLiabilityByDate = 0;
         $scope.totalLoanIssuedByDate = 0;
         $scope.totalLoanReceiptDate = 0;
+        $scope.total_debit_side = 0;
+        $scope.total_credit_side = 0;
 
+        $scope.applicants = null;
 
         FinanceService.GetAll().then(function(data){
             $scope.cashAccount = data;
@@ -48,71 +57,66 @@
 
         companyProfitService.GetAll().then(function(data){
             $scope.capital = data;
+            $scope.loan_receipts = companyProfitService.GetLoansInDate(data,$scope.start_date,$scope.end_date);
+            $scope.cash = companyProfitService.GetCashInDate(data,$scope.start_date,$scope.end_date);
         });
 
         CompanyService.GetAll().then(function(data){
             $scope.company = data;
         });
         $scope.cashAccountFunction = function(){
-            var dates = [$scope.start_date,$scope.end_date];
-            var objects = [{name:'Expenses',amount:0},{name:'Liabilities',amount:0},{name:'Cash',amount:0}];
-            $scope.$watch("cashAccount",function(newCash,oldCash){
-                if(angular.isDefined(newCash)){
-                    angular.forEach($scope.cashAccount,function(cashVal,cashInd){
 
-                        var date = new Date(cashVal.created_at.replace(cashVal.created_at.substr(-9),""));
-                            if(dates[0]!=""&&dates[1]!=""){
+            LoanReturnService.GetAll().then(function(data){
+                $scope.loan_returns = LoanReturnService.getReturnByDate(data,$scope.start_date,$scope.end_date);
+                $scope.totalReturnInSelectedDate  = LoanReturnService.getTotalReturnByDate(data,$scope.start_date,$scope.end_date);
+            },function(response){
 
-                                var timeOne = new Date(dates[0]);
-                                var timeTwo = new Date(dates[1]);
-
-                                if(timeOne.getTime()<=date.getTime()&&date.getTime()<=timeTwo.getTime()){
-
-                                    if(cashVal.transaction_type=="Expenses"){
-                                        objects[0].amount+=parseFloat(cashVal.amount);
-                                    }
-
-                                    if(cashVal.transaction_type=="Liabilities"){
-                                        objects[1].amount+=parseFloat(cashVal.amount);
-                                    }
-
-                                }
-
-                            }
-
-                    });
-
-                }
             });
+            ApplicantService.GetAll().then(function(data){
+                $scope.applicants = data;
+            },function(response){});
 
-            $scope.$watch("capital",function(newCapital,oldCapital){
-                var buffer = [];
-                if(angular.isDefined(newCapital)) {
-                    angular.forEach($scope.capital, function (capVal, capInd) {
-                        var date = new Date(capVal.created_at.replace(capVal.created_at.substr(-9),""));
-                        if(dates[0]!=""&&dates[1]!=""){
 
-                            var timeOne = new Date(dates[0]);
-                            var timeTwo = new Date(dates[1]);
+            ExpensesService.GetAll().then(function(data){
+                $scope.expenses = ExpensesService.GetExpensesInDate(data,$scope.start_date,$scope.end_date);
+                //$scope.totalApplicationFeeInSelectedDate = ApplicationService.GetApplicationFeesBydate(data,$scope.start_date,$scope.end_date);
+                $scope.totalExpenses = ExpensesService.totalExpenses($scope.expensesD);
+            },function(restponse){});
 
-                            if(timeOne.getTime()<=date.getTime()&&date.getTime()<=timeTwo.getTime()){
-                                buffer.push(capVal);
-                            }
 
-                        }
-                    });
-                }
-                if(buffer.length>0){
-                    var capital = buffer[buffer.length-1];
-                    objects[2].amount = parseFloat(capital.amount);
 
-                }
-            });
-            $scope.cash = objects;
+            GrantService.GetAll().then(function(data){
+                $scope.grants = GrantService.GetGrantedLoanInDate(data,$scope.start_date,$scope.end_date);
+                $scope.totalGrantedLoanInSelectedDate = GrantService.TotalGetGrantedLoanInDate($scope.grants);
+
+            },function(restponse){});
+
+
+
+
         }
 
 
         $scope.cashAccountFunction();
+
+$scope.sumDebt = function(credit){
+    $scope.total_debit_side += Number(credit);
+}
+$scope.sumCredit = function(credit){
+
+    $scope.total_credit_side += Number(credit);
+}
+        $scope.getApplicantName = function(applicant_id){
+            return UtilityService.getApplicantName(applicant_id,$scope.applicants);
+        }
+
+$scope.difference = function(a,b){
+        if(Number(a)>Number(b)){
+            return Number(a) - Number(b);
+        }else{
+            return Number(b) - Number(a);
+        }
+}
         $scope.totalExpensesByDate  = function(cash){
 
             angular.forEach(cash,function(value,index){

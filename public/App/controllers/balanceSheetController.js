@@ -15,7 +15,12 @@
             var date = new Date();
             $scope.todays_date = (date.toDateString());
             $scope.balance_date = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-            $scope.assets = [];
+            $scope.currentAssets = [];
+            $scope.fixedAssets = [];
+            $scope.totalFixedAssets = 0;
+            $scope.totalCurrentAssets = 0;
+
+
             $scope.total_assets = 0;
             $scope.total_liabilities = 0;
             $scope.financies = null;
@@ -24,20 +29,11 @@
             $scope.liabilities = [];
 
         AssetService.GetAll().then(function(data){
-
-            angular.forEach(data,function(value,index){
-
-                    $scope.assets.push(value);
-
-
-            })
-
-            angular.forEach($scope.assets,function(value,index){
-                $scope.total_assets = parseInt($scope.total_assets)+parseInt(value.value);
-            })
-
+            $scope.fixedAssets = AssetService.FixedAsset(data);
+            $scope.totalFixedAssets = AssetService.TotalFixedAsset(data);
+            $scope.currentAssets = AssetService.CurrentAsset(data);
+            $scope.totalCurrentAssets = AssetService.TotalCurrentAsset(data);
         },function(response){
-
         });
 
         FinanceService.GetAll().then(function(data){
@@ -53,9 +49,9 @@
                     //var dates = new Date(value.date);
                     //var datez = dates.getFullYear()+"-"+(dates.getMonth()+1)+"-"+dates.getDate();
                     //if(datez==$scope.balance_date){
-                        $scope.assets.push(value);
-                    //}
-                    $scope.expenses.push(value);
+                    //    $scope.assets.push(value);
+                    ////}
+                    //$scope.expenses.push(value);
                 }
             });
         },function(response){

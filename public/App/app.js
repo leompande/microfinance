@@ -62,12 +62,17 @@
                 templateUrl: "public/App/partials/accounts/finance/capital_account.html"
             }).when('/accounts/cash_account', {
                 templateUrl: "public/App/partials/accounts/finance/cash_account.html"
-            }).when('/accounts/income_statement', {
-                templateUrl: "public/App/partials/accounts/finance/income_statement.html"
             })
-            //.when('/accounts/balance_sheet', {
-            //    templateUrl: "public/App/partials/accounts/finance/balance_sheet.html"
-            //})
+            .when('/accounts/income_statement', {
+                templateUrl: "public/App/partials/accounts/finance/income_statement.html",
+                controller:"incomeStatementController"
+            }).when('/accounts/debtors', {
+                templateUrl: "public/App/partials/settings/debtors/index.html",
+                controller:"debtorsController"
+            })
+            .when('/accounts/balance_sheet', {
+                templateUrl: "public/App/partials/accounts/finance/balance_sheet.html"
+            })
             .when('/settings/loans', {
                 templateUrl: "public/App/partials/settings/loans/index.html",
                 controller:"loanController"
