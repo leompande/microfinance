@@ -21,7 +21,7 @@
         service.Delete = Delete;
         service.getReturnByDate = getReturnByDate;
         service.getReturnsByDate = getReturnsByDate;
-        service.getTotalReturnsByDate = getTotalReturnByDate;
+        service.getTotalReturnByDate = getTotalReturnByDate;
         service.getTotalReturnsByDate = getTotalReturnsByDate;
 
         return service;

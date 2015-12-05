@@ -7,7 +7,7 @@
     'use strict';
 
     angular
-        .module('microfinanceApp', ['ngRoute','ngCookies','datatables','720kb.datepicker'])
+        .module('microfinanceApp', ['ngRoute','ngCookies','datatables','720kb.datepicker','highcharts-ng'])
         .config(applicationConfiguration);
     applicationConfiguration.$inject = ['$routeProvider'];
     function applicationConfiguration ($routeProvider) {
@@ -20,7 +20,8 @@
             })
 
             .when('/dashboard', {
-                templateUrl: "public/App/partials/dashboard.html"
+                templateUrl: "public/App/partials/dashboard.html",
+                controller:"dashboardController"
             })
 
             .when('/applicants', {

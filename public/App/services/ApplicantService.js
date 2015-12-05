@@ -23,12 +23,16 @@
         service.CheckLoanReturns = CheckLoanReturns;
         service.GetGrantedLoan = GetGrantedLoan;
         service.getLastReturn = getLastReturn;
-        service.GetAmountReturnedArleady = GetAmountReturnedArleady;
+        service.GetApplicantYearly = GetApplicantYearly;
         service.max = max;
         return service;
 
         function GetAll() {
             return $http.get('public/index.php/applicants').then(handleSuccess, handleError('Error getting all users'));
+        }
+
+        function GetApplicantYearly(year) {
+            return $http.get('public/index.php/applicants/period/'+year).then(handleSuccess, handleError('Error getting all users'));
         }
 
         function GetById(id) {

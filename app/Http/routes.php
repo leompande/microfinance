@@ -27,6 +27,7 @@ Route::resource('granted_loans', 'GrantedLoanController');
 Route::resource('loan_returns', 'LoanReturnController');
 Route::resource('logs', 'LogsController');
 Route::resource('applicants', 'ApplicantController');
+Route::resource('applicants/{filter}/{value}', 'ApplicantFiltersController');
 Route::resource('finances', 'FinancialTransactionController');
 Route::resource('users', 'UserController');
 //Route::resource('users/{id}', 'UserController');
