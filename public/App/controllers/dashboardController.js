@@ -11,9 +11,9 @@
         .module('microfinanceApp')
         .controller('dashboardController', dashboardController);
 
-    mainController.$inject = ['$scope','ApplicantService'];
+    dashboardController.$inject = ['$scope','ApplicantService','$interval'];
 
-    function dashboardController($scope,ApplicantService) {
+    function dashboardController($scope,ApplicantService,$interval) {
         var date = new Date();
         $scope.currentYear  = date.getFullYear();
 
@@ -22,8 +22,8 @@
         $scope.finisheddApplicatnts = 0;
         $scope.deniedddApplicatnts = 0;
         // get all applicant this year
-        ApplicantService.GetApplicantYearly(2015).then(function(data){
-            console.log(data);
+
+        ApplicantService.GetApplicantYearly($scope.currentYear).then(function(data){
             $scope.totalApplicatnts = getTotalApplicants(data);
             $scope.grantedApplicatnts = getGrantedApplicatnts(data);
             $scope.deniedddApplicatnts = getDeniedApplicatnts(data);
@@ -35,39 +35,77 @@
 
             var lineseries = prepareLineSeries(data);
             var categories =  ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
+            $scope.maxStatistics = extractStatistics(lineseries,categories);
+            //console.log(maxStatistics.appllied);
+            //console.log(maxStatistics.granted);
+            //console.log(maxStatistics.paid);
+            //console.log(maxStatistics.denied);
             drawPie(pieseries);
             drawline(lineseries,categories);
 
         });
+
+        function extractStatistics(linearseries,categories){
+            var objectStatistic = {
+                appllied:Math.max.apply(Math,linearseries[0].data),
+                granted:Math.max.apply(Math,linearseries[1].data),
+                paid:Math.max.apply(Math,linearseries[2].data),
+                denied:Math.max.apply(Math,linearseries[3].data),
+                appliedMonth:categories[linearseries[0].data.indexOf(Math.max.apply(Math,linearseries[0].data))],
+                grantedMonth:categories[linearseries[1].data.indexOf(Math.max.apply(Math,linearseries[1].data))],
+                paidMonth:categories[linearseries[2].data.indexOf(Math.max.apply(Math,linearseries[2].data))],
+                deniedMonth:categories[linearseries[3].data.indexOf(Math.max.apply(Math,linearseries[3].data))]
+            };
+
+            return objectStatistic;
+        }
 
         function getTotalApplicants(data){
             return data.length;
         }
 
         function prepareLineSeries(data){
-            var months = "";
+            var months = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
+            var series = [
+                {
+                    name: 'Applied',
+                    data: [0,0,0,0,0,0,0,0,0,0,0,0]
+                },{
+                    name: 'Granted',
+                    data: [0,0,0,0,0,0,0,0,0,0,0,0]
+                },{
+                    name: 'Paid',
+                    data: [0,0,0,0,0,0,0,0,0,0,0,0]
+                },{
+                    name: 'Denied',
+                    data: [0,0,0,0,0,0,0,0,0,0,0,0]
+                }
+            ];
             angular.forEach(data,function(value,index){
-                console.log(value.created_at);
+                series[0].data[getMonth(value.created_at)-1]++;
+                if(value.status=="granted"){
+                    series[1].data[getMonth(value.created_at)-1]++;
+                }
+                if(value.status=="finished"){
+                    series[2].data[getMonth(value.created_at)-1]++;
+                }
+                if(value.status=="denied"){
+                    series[3].data[getMonth(value.created_at)-1]++;
+                }
             });
-           var series =  [{
-                name: 'Applied',
-                data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-            }, {
-                name: 'Granted',
-                data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-            }, {
-                name: 'Paid',
-                data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-            }, {
-                name: 'Denied',
-                data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-            }];
 
+            console.log(series);
 
             return series;
         }
 
+        function getMonth(created_at){
+            if(created_at){
+                var array = created_at.split("-");
+
+                return array[1];
+            }
+        }
         function getDeniedApplicatnts(data){
             var countDenied = 0;
             angular.forEach(data,function(value,index){
@@ -139,10 +177,6 @@
                 text: '',
                 x: -20 //center
             },
-            //subtitle: {
-            //    text: 'Source: WorldClimate.com',
-            //    x: -20
-            //},
             xAxis: {
                 categories:categories
             },

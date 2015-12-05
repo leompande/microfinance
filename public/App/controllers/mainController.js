@@ -21,8 +21,7 @@
             $scope.company = data;
 
         });
-
-
+        $scope.format = 'yyyy-M-d  h:mm:ss a';
     }
 
 })();
