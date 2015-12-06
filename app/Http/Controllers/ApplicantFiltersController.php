@@ -28,11 +28,14 @@ class ApplicantFiltersController extends Controller
         $start_date = date_format($start_date,"Y/m/d H:i:s");
         $end_date = date_format($end_date,"Y/m/d H:i:s");
 
-        $applicants = DB::table('applicants')
-            ->leftJoin('granted_loans','granted_loans.applicant_id', '=','applicants.id')
-            ->leftJoin('applications','applications.applicant_id', '=','applicants.id')
-            ->whereBetween('applicants.created_at', [$start_date, $end_date]) // this condition has to be the last before get
-            ->get();
+        if($period=="year"){
+            $applicants = DB::table('applicants')
+                ->leftJoin('granted_loans','granted_loans.applicant_id', '=','applicants.id')
+                ->leftJoin('applications','applications.applicant_id', '=','applicants.id')
+                ->whereBetween('applicants.created_at', [$start_date, $end_date]) // this condition has to be the last before get
+                ->get();
+
+        }
 
         return $applicants;
     }

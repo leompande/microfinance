@@ -19,11 +19,16 @@
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
+        service.RecentTransactions = RecentTransactions;
 
         return service;
 
         function GetAll() {
             return $http.get('public/index.php/finances').then(handleSuccess, handleError('Error getting all users'));
+        }
+
+        function RecentTransactions(value) {
+            return $http.get('public/index.php/finances/daily/'+value+'/get').then(handleSuccess, handleError('Error getting all users'));
         }
 
         function GetById(id) {

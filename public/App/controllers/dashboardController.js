@@ -11,9 +11,9 @@
         .module('microfinanceApp')
         .controller('dashboardController', dashboardController);
 
-    dashboardController.$inject = ['$scope','ApplicantService','$interval'];
+    dashboardController.$inject = ['$scope','ApplicantService','FinanceService','ApplicationService','$interval'];
 
-    function dashboardController($scope,ApplicantService,$interval) {
+    function dashboardController($scope,ApplicantService,FinanceService,ApplicationService,$interval) {
         var date = new Date();
         $scope.currentYear  = date.getFullYear();
 
@@ -21,6 +21,25 @@
         $scope.grantedApplicatnts = 0;
         $scope.finisheddApplicatnts = 0;
         $scope.deniedddApplicatnts = 0;
+        $scope.recent_transactions = null;
+        $scope.recent_applications = null;
+        $scope.days_span = 7;
+        $scope.tab = 1;
+        $scope.active_tab_1 = "active";
+        $scope.active_tab_2 = "";
+
+        $scope.changeClass = function(tab){
+            if(tab==2){
+                $scope.tab = 2;
+                $scope.active_tab_1 = "";
+                $scope.active_tab_2 = "active";
+            }else{
+                $scope.tab = 1;
+                $scope.active_tab_1 = "active";
+                $scope.active_tab_2 = "";
+            }
+        }
+
         // get all applicant this year
 
         ApplicantService.GetApplicantYearly($scope.currentYear).then(function(data){
@@ -44,7 +63,25 @@
             drawline(lineseries,categories);
 
         });
+        pullRecentTransaction($scope.days_span);
+        pullRecentApplication($scope.days_span);
 
+        $interval(function(){
+            pullRecentTransaction($scope.days_span);
+            pullRecentApplication($scope.days_span);
+        },5000);
+
+
+        function pullRecentApplication(days_span){
+            ApplicationService.GetRecentApplications(days_span).then(function(data){
+                $scope.recent_applications = data;
+            });
+        }
+        function pullRecentTransaction(days_span){
+            FinanceService.RecentTransactions(days_span).then(function(data){
+                $scope.recent_transactions = data;
+            });
+        }
         function extractStatistics(linearseries,categories){
             var objectStatistic = {
                 appllied:Math.max.apply(Math,linearseries[0].data),

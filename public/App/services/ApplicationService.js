@@ -21,11 +21,15 @@
         service.Delete = Delete;
         service.GetApplicationFeesBydate= GetApplicationFeesBydate;
         service.GetAmountToReturn= GetAmountToReturn;
+        service.GetRecentApplications= GetRecentApplications;
 
         return service;
 
         function GetAll() {
             return $http.get('public/index.php/applications').then(handleSuccess, handleError('Error getting all users'));
+        }
+        function GetRecentApplications(value) {
+            return $http.get('public/index.php/recentApplications/daily/'+value+'/get').then(handleSuccess, handleError('Error getting all users'));
         }
 
         function GetById(id) {

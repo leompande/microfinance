@@ -21,6 +21,25 @@ class FinancialTransactionController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function recentTransaction($period,$value)
+    {
+        $filteredArray = Array();
+        $financial_transactions = FinancialTransaction::all()->load("expenses","liabilities");
+        if($period=="daily"){
+            foreach($financial_transactions as $index => $values){
+                $days = $this::getDays($values->created_at);
+                if($value>=$days){
+                    array_push($filteredArray,$values);
+                }
+            }
+        }
+        return $filteredArray;
+    }
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -122,5 +141,14 @@ class FinancialTransactionController extends Controller
         }else{
             return "success";
         }
+    }
+
+    private static function getDays($created_at){
+        $now_date = strtotime (date ('Y-m-d H:i:s'));
+        $key_date = strtotime (date ($created_at));
+        $diff = $now_date-$key_date;
+        $days = floor($diff/(60*60*25));
+
+        return $days;
     }
 }

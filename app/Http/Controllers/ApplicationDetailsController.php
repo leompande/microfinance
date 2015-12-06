@@ -20,6 +20,9 @@ class ApplicationDetailsController extends Controller
         return $application_details;
     }
 
+
+
+
     /**
      * Show the form for creating a new resource.
      *

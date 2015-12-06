@@ -22,6 +22,29 @@ class ApplicationController extends Controller
         return $applications;
     }
 
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function recentApplication($period,$value)
+    {
+        $filteredArray = Array();
+        $application_details = Application::all()->load('applicants','loan');
+        if($period=="daily"){
+            foreach($application_details as $index => $values){
+                $days = $this::getDays($values->created_at);
+                if($value>=$days){
+                    array_push($filteredArray,$values);
+                }
+            }
+        }
+        return $filteredArray;
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -118,5 +141,14 @@ class ApplicationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private static function getDays($created_at){
+        $now_date = strtotime (date ('Y-m-d H:i:s'));
+        $key_date = strtotime (date ($created_at));
+        $diff = $now_date-$key_date;
+        $days = floor($diff/(60*60*25));
+
+        return $days;
     }
 }

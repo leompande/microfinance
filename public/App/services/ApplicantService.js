@@ -32,7 +32,7 @@
         }
 
         function GetApplicantYearly(year) {
-            return $http.get('public/index.php/applicants/period/'+year+'/get').then(handleSuccess, handleError('Error getting all users'));
+            return $http.get('public/index.php/applicants/year/'+year+'/get').then(handleSuccess, handleError('Error getting all users'));
         }
 
         function GetById(id) {
