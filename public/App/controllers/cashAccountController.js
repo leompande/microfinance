@@ -9,8 +9,8 @@
         .module('microfinanceApp')
         .controller('cashAccountController',cashAccountController);
 
-    cashAccountController.$inject = ['$scope','$cookies','$timeout','$routeParams','$window','$filter','AuthenticationService','companyProfitService','CompanyService','FinanceService','LoanReturnService','ApplicantService','ExpensesService','GrantService','UtilityService','DTOptionsBuilder'];
-    function cashAccountController($scope,$cookies,$timeout,$routeParams,$window,$filter,AuthenticationService,companyProfitService,CompanyService,FinanceService,LoanReturnService,ApplicantService,ExpensesService,GrantService,UtilityService,DTOptionsBuilder) {
+    cashAccountController.$inject = ['$scope','$cookies','$timeout','$routeParams','$window','$filter','AuthenticationService','companyProfitService','ApplicationService','CompanyService','FinanceService','LoanReturnService','ApplicantService','CashAccountService','ExpensesService','GrantService','UtilityService','DTOptionsBuilder'];
+    function cashAccountController($scope,$cookies,$timeout,$routeParams,$window,$filter,AuthenticationService,companyProfitService,CompanyService,ApplicationService,FinanceService,LoanReturnService,ApplicantService,CashAccountService,ExpensesService,GrantService,UtilityService,DTOptionsBuilder) {
         $scope.cash = [];
         var demo = [{
             id: "3",
@@ -59,6 +59,7 @@
             $scope.capital = data;
             $scope.loan_receipts = companyProfitService.GetLoansInDate(data,$scope.start_date,$scope.end_date);
             $scope.cash = companyProfitService.GetCashInDate(data,$scope.start_date,$scope.end_date);
+            console.log($scope.loan_receipts);
         });
 
         CompanyService.GetAll().then(function(data){
@@ -68,6 +69,7 @@
 
             LoanReturnService.GetAll().then(function(data){
                 $scope.loan_returns = LoanReturnService.getReturnByDate(data,$scope.start_date,$scope.end_date);
+                $scope.total_debit_side = CashAccountService.sumDebitSide($scope.loan_returns)
                 $scope.totalReturnInSelectedDate  = LoanReturnService.getTotalReturnByDate(data,$scope.start_date,$scope.end_date);
             },function(response){
 
@@ -79,8 +81,10 @@
 
             ExpensesService.GetAll().then(function(data){
                 $scope.expenses = ExpensesService.GetExpensesInDate(data,$scope.start_date,$scope.end_date);
+
+                $scope.total_credit_side = CashAccountService.sumCreditSide($scope.expenses);
                 //$scope.totalApplicationFeeInSelectedDate = ApplicationService.GetApplicationFeesBydate(data,$scope.start_date,$scope.end_date);
-                $scope.totalExpenses = ExpensesService.totalExpenses($scope.expensesD);
+                //$scope.totalExpenses = ExpensesService.totalExpenses($scope.expensesD);
             },function(restponse){});
 
 

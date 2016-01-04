@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\PDF;
 use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App;
 class HomeController extends Controller
 {
     /**
@@ -53,6 +54,19 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    /**
+     * this class method generate the pdf for the whole system reports
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getPdf(Request $request)
+    {
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($request->contents);
+        return $pdf->stream();
     }
 
     /**

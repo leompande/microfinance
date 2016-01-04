@@ -20,7 +20,7 @@
         $scope.current_year = date.getFullYear();
         $scope.todays_date = (date.toDateString());
         $scope.balance_date = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-        $scope.start_date = date.getFullYear()+"-"+(date.getMonth()+1)+"-01";
+        $scope.start_date = date.getFullYear()+"-01-01";
         $scope.end_date = $scope.balance_date;
 
         var demo = {id: "2",source_id: "",source_type: "Accumulated Capital",amount: "0",created_by: "1",created_at: " ",updated_at: " "};
@@ -46,6 +46,14 @@
         }
         $scope.getCapitalAccount();
 
+
+        $scope.printCapitalAccount = function(contents){
+            var content =  $("#"+contents).html();
+            UtilityService.printPdf(content).then(function(data){
+
+                window.open('public/index.php/homeprint?contents='+content,'_blank');
+            });
+        }
 
         //capital.loadCapital = function(){
         //    companyProfitService.GetAll().then(function(data){

@@ -49,6 +49,7 @@
             <div class="row">
                 <div class="col-md-12" style="text-align: right;">{{todays_date}}</div>
             </div>
+
             <table class="table table-bordered table-widget">
                 <thead>
                 <tr>
@@ -60,16 +61,22 @@
                 </thead>
                 <tbody>
                 <!--<tr ng-repeat="loan_receipt in loan_receipts"><td>{{loan_receipt.created_at|toHumaReadable}}</td><td>{{loan_receipt.source_type}}</td><td style="text-align: right;">{{loan_receipt.amount}}</td><td style="text-align: right;">{{sumDebt(loan_receipt.amount)}}</td></tr>-->
-                <!--<tr ng-repeat="loan_return in loan_returns"><td>{{loan_return.created_at|toHumaReadable}}</td><td>{{getApplicantName(loan_return.applicant_id)}} (Return)</td><td style="text-align: right;">{{loan_return.amount}}</td><td style="text-align: right;">{{sumDebt(loan_return.amount)}}</td></tr>-->
+                <tr ng-repeat="loan_return in loan_returns"><td>{{loan_return.created_at|toHumaReadable}}</td><td>{{getApplicantName(loan_return.applicant_id)}} (Return)</td><td style="text-align: right;">{{loan_return.amount}}</td><td style="text-align: right;"></td></tr>
                 <!--<tr ng-repeat="cashed in cash"><td>{{cashed.created_at|toHumaReadable}}</td><td>Cash</td><td style="text-align: right;">{{cashed.amount}}</td><td >{{sumDebt(cashed.amount)}}</td></tr>-->
                 <!--<tr ng-repeat="grant in grants"><td>{{grant.created_at|toHumaReadable}}</td><td>{{getApplicantName(grant.applicant_id)}} (Granted)</td><td >{{sumCredit(grant.loaned_amount)}}</td><td style="text-align: right;">{{grant.loaned_amount}}</td></tr>-->
-                <tr ng-repeat="expense in expenses"><td >{{expense.created_at|toHumaReadable}}</td><td >{{expense.name}}</td><td>{{sumCredit(expense.value)}}</td><td style="text-align: right;">{{expense.value}}</td></tr>
+                <tr ng-repeat="expense in expenses  track by $index"><td >{{expense.created_at|toHumaReadable}}</td><td >{{expense.name}}</td><td></td><td style="text-align: right;">{{expense.value}}</td></tr>
 
                 <tr >
                     <td ></td>
                     <td >Balance c/d</td>
-                    <th style="border-bottom: 2px solid #CCCCCC!important;border-top: 2px solid #CCCCCC!important;text-align: right;"><span ng-if="total_debit_side>total_credit_side">{{difference(total_debit_side,total_credit_side)}}</span><span ng-if="total_debit_side<total_credit_side">{{difference(total_credit_side-total_debit_side)}}</span></th>
-                    <th style="border-bottom: 2px solid #CCCCCC!important;border-top: 2px solid #CCCCCC!important;text-align: right;"><span ng-if="total_debit_side>total_credit_side">{{total_debit_side}}</span><span ng-if="total_debit_side<total_credit_side">{{difference(total_credit_side-total_debit_side)}}</span></th>
+                    <th style="border-bottom: 2px solid #CCCCCC!important;border-top: 2px solid #CCCCCC!important;text-align: right;">
+                        <span ng-if="total_debit_side>total_credit_side">{{total_credit_side}}</span>
+                        <span ng-if="total_debit_side<total_credit_side">{{total_credit_side-total_debit_side}}</span>
+                    </th>
+                    <th style="border-bottom: 2px solid #CCCCCC!important;border-top: 2px solid #CCCCCC!important;text-align: right;">
+                        <span ng-if="total_debit_side>total_credit_side">{{total_debit_side-total_credit_side}}</span>
+                        <span ng-if="total_debit_side<total_credit_side">{{total_credit_side-total_debit_side}}</span>
+                    </th>
                 </tr>
                 <tr ><td ></td><td ></td><th style="border-bottom: 3px double #CCCCCC!important;border-top: 2px solid #CCCCCC!important;text-align: right"><span ng-if="total_debit_side>total_credit_side">{{total_debit_side}}</span><span ng-if="total_debit_side<total_credit_side">{{total_credit_side}}</span></th><th style="border-bottom: 3px double #CCCCCC!important;border-top: 2px solid #CCCCCC!important;text-align: right"><span ng-if="total_debit_side>total_credit_side">{{total_debit_side}}</span><span ng-if="total_debit_side<total_credit_side">{{total_credit_side}}</span></th></tr>
                 <tr ><td ></td><td >Balance b/d</td><td></td><th style="text-align: right;">{{balance_bd_last_year+total_loan_and_cash_and_balance}}</th></tr>

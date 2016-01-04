@@ -31,6 +31,7 @@ Route::resource('applicants', 'ApplicantController');
 Route::resource('applicants/{filter}/{value}/get', 'ApplicantFiltersController');
 Route::resource('finances', 'FinancialTransactionController');
 Route::resource('finances/{period}/{value}/get', 'FinancialTransactionController@recentTransaction');
+Route::resource('homeprint', 'HomeController@getPdf');
 Route::resource('users', 'UserController');
 //Route::resource('users/{id}', 'UserController');
 Route::resource('authenticate', 'Auth\AuthController@authenticate');

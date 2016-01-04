@@ -21,7 +21,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="exp in expenses">
+                            <tr ng-repeat="exp in expenses  track by $index">
 
                                 <td>{{$index+1}}</td>
                                 <td>{{exp.name}} </td>
